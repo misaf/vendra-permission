@@ -1,6 +1,6 @@
 # Vendra Permission
 
-Role and permission management for Vendra, built on top of Spatie Permission and Filament 4.
+Role and permission management for Vendra applications.
 
 ## Features
 
@@ -16,8 +16,11 @@ Role and permission management for Vendra, built on top of Spatie Permission and
 ## Requirements
 
 - PHP 8.2+
-- Laravel 11 or 12
-- Filament 4
+- Laravel 12
+- Filament 5
+- Livewire 4
+- Pest 4
+- Tailwind CSS 4
 - `laravel/pennant`
 - `misaf/vendra-tenant`
 - `misaf/vendra-user`
@@ -217,7 +220,6 @@ See: https://spatie.be/docs/laravel-permission
 ## Development
 
 ```bash
-composer test
 composer analyse
 composer format
 ```
@@ -233,6 +235,12 @@ Update this file whenever these change:
 - Translation keys/files in `resources/lang`
 - Authorization behavior in policies or `PermissionServiceProvider`
 - Installation steps (especially migration/config behavior)
+
+## Testing
+
+```bash
+composer test
+```
 
 ## License
 
