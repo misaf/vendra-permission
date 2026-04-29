@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Misaf\VendraPermission;
+namespace Misaf\VendraPermission\Providers;
 
 use Filament\Panel;
 use Illuminate\Foundation\Console\AboutCommand;
@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Pennant\Feature;
 use Misaf\VendraPermission\Console\Commands\FeatureToggleCommand;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
+use Misaf\VendraPermission\PermissionPlugin;
 use Misaf\VendraTenant\Models\Tenant;
 use Misaf\VendraUser\Models\User;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;

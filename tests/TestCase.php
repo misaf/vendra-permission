@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Http;
 use Livewire\LivewireServiceProvider;
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraPermission\Models\Role;
-use Misaf\VendraPermission\PermissionServiceProvider;
+use Misaf\VendraPermission\Providers\PermissionServiceProvider;
 use Mokhosh\FilamentJalali\FilamentJalaliServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Override;

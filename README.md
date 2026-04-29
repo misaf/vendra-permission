@@ -138,7 +138,7 @@ Feature keys are defined in:
 
 Resolver registration lives in:
 
-- `Misaf\VendraPermission\PermissionServiceProvider::packageBooted()`
+- `Misaf\VendraPermission\Providers\PermissionServiceProvider::packageBooted()`
 
 Resolver behavior:
 
