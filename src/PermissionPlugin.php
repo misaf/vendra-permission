@@ -9,9 +9,11 @@ use Filament\Panel;
 
 final class PermissionPlugin implements Plugin
 {
+    public const string ID = 'vendra-permission';
+
     public function getId(): string
     {
-        return 'vendra-permission';
+        return self::ID;
     }
 
     public static function make(): static
