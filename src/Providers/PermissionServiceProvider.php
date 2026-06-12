@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Pennant\Feature;
 use Misaf\VendraPermission\Console\Commands\FeatureToggleCommand;
+use Misaf\VendraPermission\Console\Commands\SeedCommand;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
 use Misaf\VendraPermission\PermissionPlugin;
 use Misaf\VendraTenant\Models\Tenant;
@@ -32,7 +33,10 @@ final class PermissionServiceProvider extends PackageServiceProvider
                 'add_description_column_to_roles_table',
                 'add_description_column_to_permissions_table',
             ])
-            ->hasCommand(FeatureToggleCommand::class)
+            ->hasCommands(
+                FeatureToggleCommand::class,
+                SeedCommand::class,
+            )
             ->hasInstallCommand(function (InstallCommand $command): void {
                 $command->askToStarRepoOnGitHub('misaf/vendra-permission');
             });
