@@ -6,6 +6,7 @@ namespace Misaf\VendraPermission\Models;
 
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Misaf\VendraActivityLog\Concerns\HasDefaultActivityLogOptions;
 use Misaf\VendraPermission\Database\Factories\RoleFactory;
@@ -22,6 +23,7 @@ use Spatie\Permission\Models\Role as SpatieRole;
  */
 #[Fillable(['name', 'description', 'guard_name'])]
 #[Hidden(['tenant_id'])]
+#[UseFactory(RoleFactory::class)]
 final class Role extends SpatieRole
 {
     use BelongsToTenant;
@@ -44,11 +46,6 @@ final class Role extends SpatieRole
             'description' => 'string',
             'guard_name'  => 'string',
         ];
-    }
-
-    protected static function newFactory()
-    {
-        return RoleFactory::new();
     }
 
 }
