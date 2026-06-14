@@ -12,7 +12,6 @@ final class CreateRoleAction
     public function execute(
         Tenant $tenant,
         string $name,
-        ?string $description,
         string $guardName,
     ): Role {
         /** @var Role $role */
