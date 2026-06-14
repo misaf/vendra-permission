@@ -29,11 +29,5 @@ final class DemoContentSeeder extends Seeder
     {
         $roleName = Config::string('vendra-permission.super_admin_role', 'super-admin');
         $guardName = Config::string('auth.defaults.guard', 'web');
-
-        $role = $this->createRoleAction->execute($tenant, $roleName, null, $guardName);
-
-        $message = $role->wasRecentlyCreated ? 'Created' : 'Found existing';
-
-        $this->command->info("{$message} default role [{$roleName}] for {$tenant->slug} tenant.");
     }
 }
