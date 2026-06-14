@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Misaf\VendraPermission\Database\Factories;
 
+use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
@@ -14,10 +15,9 @@ use RuntimeException;
 /**
  * @extends Factory<Permission>
  */
+#[UseModel(Permission::class)]
 final class PermissionFactory extends Factory
 {
-    protected $model = Permission::class;
-
     public function definition(): array
     {
         $guardNames = $this->configuredGuardNames();
