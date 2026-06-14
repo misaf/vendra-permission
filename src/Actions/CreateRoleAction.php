@@ -16,11 +16,7 @@ final class CreateRoleAction
         string $guardName,
     ): Role {
         /** @var Role $role */
-        $role = $tenant->execute(static fn() => Role::create([
-            'name'        => $name,
-            'description' => $description,
-            'guard_name'  => $guardName,
-        ]));
+        $role = $tenant->execute(static fn() => Role::findOrCreate($name, $guardName));
 
         return $role;
     }
