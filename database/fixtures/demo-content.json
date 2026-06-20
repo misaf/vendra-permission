@@ -1,0 +1,7 @@
+[
+    {
+        "name": "super-admin",
+        "description": "Full access role for tenant administrators.",
+        "guard_name": "web"
+    }
+]
