@@ -31,7 +31,6 @@ final class Role extends SpatieRole
 
     /** @use HasFactory<RoleFactory> */
     use HasFactory;
-
     use LogsActivity;
 
     /**

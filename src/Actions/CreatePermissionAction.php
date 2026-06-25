@@ -12,10 +12,15 @@ final class CreatePermissionAction
     public function execute(
         Tenant $tenant,
         string $name,
+        ?string $description,
         string $guardName,
     ): Permission {
         /** @var Permission $permission */
-        $permission = $tenant->execute(static fn() => Permission::findOrCreate($name, $guardName));
+        $permission = $tenant->execute(static fn() => Permission::create([
+            'name'        => $name,
+            'description' => $description,
+            'guard_name'  => $guardName,
+        ]));
 
         return $permission;
     }

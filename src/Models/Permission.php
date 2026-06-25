@@ -31,7 +31,6 @@ final class Permission extends SpatiePermission
 
     /** @use HasFactory<PermissionFactory> */
     use HasFactory;
-
     use LogsActivity;
 
     /**

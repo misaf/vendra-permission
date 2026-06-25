@@ -7,9 +7,9 @@ namespace Misaf\VendraPermission\Console\Commands;
 use Misaf\VendraPermission\Database\Seeders\DemoContentSeeder;
 use Misaf\VendraPermission\Database\Seeders\PermissionPolicySeeder;
 use Misaf\VendraPermission\PermissionPlugin;
-use Misaf\VendraSupport\Console\Commands\BaseSeedCommand;
+use Misaf\VendraTenant\Console\Commands\TenantSeedCommand;
 
-final class SeedCommand extends BaseSeedCommand
+final class SeedCommand extends TenantSeedCommand
 {
     protected const string MODULE_NAME = PermissionPlugin::ID;
 
