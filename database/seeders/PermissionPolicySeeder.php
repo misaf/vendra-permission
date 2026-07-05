@@ -7,8 +7,8 @@ namespace Misaf\VendraPermission\Database\Seeders;
 use Misaf\VendraPermission\Enums\PermissionPolicyEnum;
 use Misaf\VendraPermission\Enums\RolePolicyEnum;
 use Misaf\VendraPermission\PermissionPlugin;
+use Misaf\VendraSupport\Concerns\RequiresCurrentTenant;
 use Misaf\VendraSupport\Database\Seeders\PermissionPolicySeeder as BasePermissionPolicySeeder;
-use Misaf\VendraTenant\Concerns\RequiresCurrentTenant;
 
 final class PermissionPolicySeeder extends BasePermissionPolicySeeder
 {

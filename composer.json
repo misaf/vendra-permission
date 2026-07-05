@@ -30,7 +30,6 @@
 		"laravel/pennant": "^1.19",
 		"misaf/vendra-activity-log": "dev-master",
 		"misaf/vendra-support": "dev-master",
-		"misaf/vendra-tenant": "dev-master",
 		"misaf/vendra-user": "dev-master",
 		"mokhosh/filament-jalali": "5.0",
 		"spatie/laravel-package-tools": "^1.0",

@@ -13,6 +13,7 @@ use Misaf\VendraPermission\Console\Commands\FeatureToggleCommand;
 use Misaf\VendraPermission\Console\Commands\SeedCommand;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
 use Misaf\VendraPermission\PermissionPlugin;
+use Misaf\VendraSupport\Support\TenantSeeders;
 use Misaf\VendraTenant\Models\Tenant;
 use Misaf\VendraUser\Models\User;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
@@ -55,6 +56,8 @@ final class PermissionServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        $this->app->make(TenantSeeders::class)->register('vendra-permission:seed', priority: 10);
+
         AboutCommand::add('Vendra Permission', fn() => ['Version' => 'dev-master']);
 
         Gate::after(function (User $user): ?true {
