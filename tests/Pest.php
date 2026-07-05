@@ -13,6 +13,7 @@ use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\PermissionResource;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\RoleResource;
 use Misaf\VendraPermission\Models\Role;
+use Misaf\VendraPermission\Tests\TestCase;
 use Misaf\VendraTenant\Models\Tenant;
 use Misaf\VendraUser\Models\User;
 
@@ -27,12 +28,12 @@ use Misaf\VendraUser\Models\User;
 |
 */
 
-pest()->extend(Misaf\VendraPermission\Tests\TestCase::class)->in('Feature');
+pest()->extend(TestCase::class)->in('Feature');
 
-pest()->extend(Misaf\VendraPermission\Tests\TestCase::class)->in('Unit');
+pest()->extend(TestCase::class)->in('Unit');
 
 /**
- * @param list<string> $features
+ * @param  list<string>  $features
  */
 function createCurrentTenantForPermissionModule(array $features = []): Tenant
 {
@@ -63,8 +64,8 @@ function setUpFilamentAdminContextForPermissionModule(): Tenant
     $user = User::factory()
         ->forTenant($tenant)
         ->create([
-            'username'  => 'super-admin',
-            'email'     => 'super-admin@example.test',
+            'username' => 'super-admin',
+            'email'    => 'super-admin@example.test',
         ]);
 
     $user->assignRole($superAdminRole);

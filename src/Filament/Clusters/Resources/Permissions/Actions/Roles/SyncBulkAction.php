@@ -48,12 +48,12 @@ final class SyncBulkAction extends BulkAction
                         })
                         ->all()
                 )
-                ->required()
+                ->required(),
         ]);
 
         $this->action(
             /**
-             * @param array{roles?: mixed} $data
+             * @param  array{roles?: mixed}  $data
              */
             function (array $data): void {
                 $rolesByGuard = $this->resolveRoleIdsByGuardFromPayload($data);
@@ -80,5 +80,4 @@ final class SyncBulkAction extends BulkAction
 
         $this->deselectRecordsAfterCompletion();
     }
-
 }

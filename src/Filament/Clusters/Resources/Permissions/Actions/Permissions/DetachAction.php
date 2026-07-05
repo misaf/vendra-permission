@@ -35,5 +35,4 @@ final class DetachAction extends Action
             $ownerRecord->revokePermissionTo($record);
         });
     }
-
 }

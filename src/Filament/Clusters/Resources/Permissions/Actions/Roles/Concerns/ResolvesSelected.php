@@ -11,7 +11,7 @@ use Misaf\VendraPermission\Models\Role;
 trait ResolvesSelected
 {
     /**
-     * @param array{roles?: mixed} $data
+     * @param  array{roles?: mixed}  $data
      * @return array<string, list<ModelKey>>
      */
     private function resolveRoleIdsByGuardFromPayload(array $data): array
@@ -51,7 +51,7 @@ trait ResolvesSelected
             ->groupBy('guard_name')
             ->map(
                 /**
-                 * @param Collection<int, Role> $rolesInGuard
+                 * @param  Collection<int, Role>  $rolesInGuard
                  * @return list<ModelKey>
                  */
                 static function (Collection $rolesInGuard): array {

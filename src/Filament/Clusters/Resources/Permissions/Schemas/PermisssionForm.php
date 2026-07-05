@@ -25,7 +25,7 @@ final class PermisssionForm
         return $schema
             ->components([
                 RolesSelect::make('roles')
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.roles"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.roles'))
                     ->dehydrated(false)
                     ->hidden(fn(Livewire $livewire, string $operation): bool => $livewire instanceof PermissionRelationManager || 'create' === $operation)
                     ->live()
@@ -50,7 +50,7 @@ final class PermisssionForm
                     ->saved(false),
 
                 TextInput::make('name')
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.name"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.name'))
                     ->autofocus()
                     ->columnSpan(fn(Get $get) => empty($get('roles')) ? ['lg' => 1] : 'full')
                     ->label(__('vendra-permission::attributes.name'))
@@ -76,7 +76,7 @@ final class PermisssionForm
                     ),
 
                 Select::make('guard_name')
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.guard_name"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.guard_name'))
                     ->columnSpan(['lg' => 1])
                     ->hiddenOn(PermissionRelationManager::class)
                     ->label(__('vendra-permission::attributes.guard_name'))
@@ -96,7 +96,7 @@ final class PermisssionForm
                     ->visible(fn(Get $get) => empty($get('roles'))),
 
                 Textarea::make('description')
-                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly("data.description"))
+                    ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.description'))
                     ->columnSpanFull()
                     ->label(__('vendra-permission::attributes.description'))
                     ->live()

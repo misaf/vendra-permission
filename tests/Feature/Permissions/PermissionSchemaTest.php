@@ -63,7 +63,7 @@ describe('Testing form validation', function () use (&$tenant): void {
     })->with([
         'name column'        => 'name',
         'guard_name column'  => 'guard_name',
-        'description column' => 'description'
+        'description column' => 'description',
     ]);
 
     it('#3', function (string $column) use (&$tenant): void {
@@ -103,7 +103,7 @@ describe('Testing the existence of form fields', function (): void {
         'roles',
         'name',
         'guard_name',
-        'description'
+        'description',
     ]);
 });
 
@@ -114,6 +114,6 @@ describe('Testing the visibility of form fields', function (): void {
     })->with([
         'name',
         'guard_name',
-        'description'
+        'description',
     ]);
 });

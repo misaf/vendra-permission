@@ -92,7 +92,7 @@ describe('table columns', function () use (&$tenant): void {
     })->with([
         'row column'     => 'row',
         'roles relation' => 'roles.name',
-        'name column'    => 'name'
+        'name column'    => 'name',
     ]);
 
     it('hides columns by default', function (string $column) use (&$tenant): void {
@@ -107,7 +107,7 @@ describe('table columns', function () use (&$tenant): void {
             ->assertCanNotRenderTableColumn($column);
     })->with([
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 });
 
@@ -232,7 +232,7 @@ describe('column states', function () use (&$tenant): void {
     })->with([
         'name column'       => 'name',
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 
     it('formats row index state', function () use (&$tenant): void {
@@ -294,7 +294,7 @@ describe('column states', function () use (&$tenant): void {
             ->assertTableColumnFormattedStateSet($column, $permission->{$column}->format('Y-m-d H:i'), $permission);
     })->with([
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 });
 
@@ -322,7 +322,7 @@ describe('column existence', function () use (&$tenant): void {
         'row column'        => 'row',
         'roles relation'    => 'roles.name',
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 });
 
@@ -336,7 +336,7 @@ describe('column visibility', function (): void {
         'roles relation'    => 'roles.name',
         'name column'       => 'name',
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 });
 
@@ -369,7 +369,7 @@ describe('column descriptions', function () use (&$tenant): void {
         'row column'        => 'row',
         'roles relation'    => 'roles.name',
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 
     it('hides description above for all configured columns', function (string $column) use (&$tenant): void {
@@ -388,7 +388,7 @@ describe('column descriptions', function () use (&$tenant): void {
         'roles relation'    => 'roles.name',
         'name column'       => 'name',
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 });
 
@@ -406,7 +406,7 @@ describe('toggleable columns', function () use (&$tenant): void {
             ->assertCanRenderTableColumn($column);
     })->with([
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 
     it('keeps hidden columns hidden after toggle off', function (string $column) use (&$tenant): void {
@@ -422,6 +422,6 @@ describe('toggleable columns', function () use (&$tenant): void {
             ->assertCanNotRenderTableColumn($column);
     })->with([
         'created at column' => 'created_at',
-        'updated at column' => 'updated_at'
+        'updated at column' => 'updated_at',
     ]);
 });

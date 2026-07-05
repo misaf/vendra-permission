@@ -7,6 +7,7 @@ namespace Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Pages;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\RoleResource;
 use Misaf\VendraPermission\Models\Permission;
@@ -31,7 +32,7 @@ final class EditRole extends EditRecord
     }
 
     /**
-     * @param Role $record
+     * @param  Role  $record
      */
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
@@ -45,7 +46,7 @@ final class EditRole extends EditRecord
             return $record;
         }
 
-        /** @var \Illuminate\Database\Eloquent\Collection<int, Permission> $permissions */
+        /** @var Collection<int, Permission> $permissions */
         $permissions = $record->permissions()->get();
 
         $permissions->each(static function (Permission $permission) use ($nextGuardName): void {

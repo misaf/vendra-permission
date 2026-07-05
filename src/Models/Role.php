@@ -31,6 +31,7 @@ final class Role extends SpatieRole
 
     /** @use HasFactory<RoleFactory> */
     use HasFactory;
+
     use LogsActivity;
 
     /**
@@ -46,5 +47,4 @@ final class Role extends SpatieRole
             'guard_name'  => 'string',
         ];
     }
-
 }

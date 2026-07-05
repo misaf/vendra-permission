@@ -31,6 +31,7 @@ final class Permission extends SpatiePermission
 
     /** @use HasFactory<PermissionFactory> */
     use HasFactory;
+
     use LogsActivity;
 
     /**
@@ -46,5 +47,4 @@ final class Permission extends SpatiePermission
             'guard_name'  => 'string',
         ];
     }
-
 }

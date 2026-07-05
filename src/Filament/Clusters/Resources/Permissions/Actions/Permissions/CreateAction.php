@@ -48,5 +48,4 @@ final class CreateAction extends FilamentCreateAction
             $ownerRecord->givePermissionTo($record);
         });
     }
-
 }
