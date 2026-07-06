@@ -5,66 +5,66 @@ declare(strict_types=1);
 namespace Misaf\VendraPermission\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Contracts\Auth\Access\Authorizable;
 use Misaf\VendraPermission\Enums\PermissionPolicyEnum;
 use Misaf\VendraPermission\Models\Permission;
-use Misaf\VendraUser\Models\User;
 
 final class PermissionPolicy
 {
     use HandlesAuthorization;
 
-    public function create(User $user): bool
+    public function create(Authorizable $user): bool
     {
-        return $user->can(PermissionPolicyEnum::CREATE);
+        return $user->can(PermissionPolicyEnum::CREATE->value);
     }
 
-    public function delete(User $user, Permission $permission): bool
+    public function delete(Authorizable $user, Permission $permission): bool
     {
-        return $user->can(PermissionPolicyEnum::DELETE);
+        return $user->can(PermissionPolicyEnum::DELETE->value);
     }
 
-    public function deleteAny(User $user): bool
+    public function deleteAny(Authorizable $user): bool
     {
-        return $user->can(PermissionPolicyEnum::DELETE_ANY);
+        return $user->can(PermissionPolicyEnum::DELETE_ANY->value);
     }
 
-    public function forceDelete(User $user, Permission $permission): bool
+    public function forceDelete(Authorizable $user, Permission $permission): bool
     {
-        return $user->can(PermissionPolicyEnum::FORCE_DELETE);
+        return $user->can(PermissionPolicyEnum::FORCE_DELETE->value);
     }
 
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(Authorizable $user): bool
     {
-        return $user->can(PermissionPolicyEnum::FORCE_DELETE_ANY);
+        return $user->can(PermissionPolicyEnum::FORCE_DELETE_ANY->value);
     }
 
-    public function replicate(User $user, Permission $permission): bool
+    public function replicate(Authorizable $user, Permission $permission): bool
     {
-        return $user->can(PermissionPolicyEnum::REPLICATE);
+        return $user->can(PermissionPolicyEnum::REPLICATE->value);
     }
 
-    public function restore(User $user, Permission $permission): bool
+    public function restore(Authorizable $user, Permission $permission): bool
     {
-        return $user->can(PermissionPolicyEnum::RESTORE);
+        return $user->can(PermissionPolicyEnum::RESTORE->value);
     }
 
-    public function restoreAny(User $user): bool
+    public function restoreAny(Authorizable $user): bool
     {
-        return $user->can(PermissionPolicyEnum::RESTORE_ANY);
+        return $user->can(PermissionPolicyEnum::RESTORE_ANY->value);
     }
 
-    public function update(User $user, Permission $permission): bool
+    public function update(Authorizable $user, Permission $permission): bool
     {
-        return $user->can(PermissionPolicyEnum::UPDATE);
+        return $user->can(PermissionPolicyEnum::UPDATE->value);
     }
 
-    public function view(User $user, Permission $permission): bool
+    public function view(Authorizable $user, Permission $permission): bool
     {
-        return $user->can(PermissionPolicyEnum::VIEW);
+        return $user->can(PermissionPolicyEnum::VIEW->value);
     }
 
-    public function viewAny(User $user): bool
+    public function viewAny(Authorizable $user): bool
     {
-        return $user->can(PermissionPolicyEnum::VIEW_ANY);
+        return $user->can(PermissionPolicyEnum::VIEW_ANY->value);
     }
 }

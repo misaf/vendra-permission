@@ -56,8 +56,12 @@
 	"autoload": {
 		"psr-4": {
 			"Misaf\\VendraPermission\\": "src/",
+			"Misaf\\VendraPermission\\Database\\Seeders\\": "database/seeders/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
 			"Misaf\\VendraPermission\\Database\\Factories\\": "database/factories/",
-			"Misaf\\VendraPermission\\Database\\Seeders\\": "database/seeders/",
 			"Misaf\\VendraPermission\\Tests\\": "tests/"
 		}
 	},
