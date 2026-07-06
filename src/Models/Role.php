@@ -8,10 +8,9 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Attributes\UseFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Misaf\VendraActivityLog\Concerns\HasDefaultActivityLogOptions;
 use Misaf\VendraPermission\Database\Factories\RoleFactory;
+use Misaf\VendraSupport\Contracts\ShouldLogActivity;
 use Misaf\VendraSupport\Traits\BelongsToTenant;
-use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Permission\Models\Role as SpatieRole;
 
 /**
@@ -24,15 +23,13 @@ use Spatie\Permission\Models\Role as SpatieRole;
 #[Fillable(['name', 'description', 'guard_name'])]
 #[Hidden(['tenant_id'])]
 #[UseFactory(RoleFactory::class)]
-final class Role extends SpatieRole
+final class Role extends SpatieRole implements ShouldLogActivity
 {
     use BelongsToTenant;
-    use HasDefaultActivityLogOptions;
 
     /** @use HasFactory<RoleFactory> */
     use HasFactory;
 
-    use LogsActivity;
 
     /**
      * @return array<string, string>
