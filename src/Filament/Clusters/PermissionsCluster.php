@@ -7,7 +7,7 @@ namespace Misaf\VendraPermission\Filament\Clusters;
 use Filament\Clusters\Cluster;
 use Laravel\Pennant\Feature;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Contracts\TenantResolver;
 
 final class PermissionsCluster extends Cluster
 {
@@ -32,7 +32,7 @@ final class PermissionsCluster extends Cluster
 
     public static function canAccess(): bool
     {
-        $tenant = Tenant::current();
+        $tenant = app(TenantResolver::class)->current();
 
         return Feature::for($tenant)->active(PermissionFeatureEnum::MODULE_ENABLED->value);
     }

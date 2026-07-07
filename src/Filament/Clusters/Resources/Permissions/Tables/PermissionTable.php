@@ -26,7 +26,7 @@ use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Permissions\DeleteBulkAction;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Roles\SyncBulkAction;
 use Misaf\VendraPermission\Models\Permission;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Contracts\TenantResolver;
 
 final class PermissionTable
 {
@@ -127,7 +127,7 @@ final class PermissionTable
 
     private static function canUseBulkRoleAssignment(): bool
     {
-        $tenant = Tenant::current();
+        $tenant = app(TenantResolver::class)->current();
 
         return Feature::for($tenant)->active(PermissionFeatureEnum::MODULE_ENABLED->value)
             && Feature::for($tenant)->active(PermissionFeatureEnum::BULK_ROLE_ASSIGNMENT->value);

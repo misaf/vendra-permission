@@ -7,12 +7,18 @@ namespace Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas
 use Filament\Forms\Components\Select;
 use Illuminate\Validation\Rule;
 use Misaf\VendraPermission\Models\Role;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Support\TenantAwareness;
 
 final class RolesSelect
 {
     public static function make(string $name = 'roles'): Select
     {
+        $existsRule = Rule::exists((new Role())->getTable(), 'id');
+
+        if (TenantAwareness::enabled()) {
+            $existsRule->where('tenant_id', TenantAwareness::currentId());
+        }
+
         return Select::make($name)
             ->columnSpanFull()
             ->label(__('vendra-permission::navigation.role'))
@@ -22,8 +28,7 @@ final class RolesSelect
             ->rule('array')
             ->nestedRecursiveRules([
                 'integer',
-                Rule::exists((new Role())->getTable(), 'id')
-                    ->where('tenant_id', Tenant::current()?->id),
+                $existsRule,
             ])
             ->searchable();
     }

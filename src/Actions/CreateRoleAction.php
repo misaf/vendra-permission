@@ -4,14 +4,19 @@ declare(strict_types=1);
 
 namespace Misaf\VendraPermission\Actions;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Misaf\VendraPermission\Models\Role;
-use Misaf\VendraTenant\Models\Tenant;
 
 final class CreateRoleAction
 {
+    /**
+     * When a tenant is supplied its scoped `execute()` context is used so the
+     * role is created for that tenant; without one (tenant-agnostic install)
+     * the role is created globally.
+     */
     public function execute(
-        Tenant $tenant,
+        ?Model $tenant,
         string $name,
         ?string $description = null,
         ?string $guardName = null,
@@ -20,13 +25,19 @@ final class CreateRoleAction
             ? Config::string('auth.defaults.guard')
             : $guardName;
 
-        /** @var Role $role */
-        $role = $tenant->execute(static fn() => Role::create([
+        $create = static fn(): Role => Role::create([
             'name'        => $name,
             'description' => $description,
             'guard_name'  => $guardName,
-        ]));
+        ]);
 
-        return $role;
+        if ($tenant instanceof Model && method_exists($tenant, 'execute')) {
+            /** @var Role $role */
+            $role = $tenant->execute($create);
+
+            return $role;
+        }
+
+        return $create();
     }
 }

@@ -13,7 +13,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\Rules\Unique;
 use Livewire\Component as Livewire;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Support\TenantAwareness;
 
 final class RoleForm
 {
@@ -31,7 +31,7 @@ final class RoleForm
                     ->string()
                     ->unique(
                         modifyRuleUsing: function (Unique $rule, Get $get): void {
-                            $rule->where('tenant_id', Tenant::current()?->id);
+                            TenantAwareness::constrainUniqueRule($rule);
 
                             $guardName = $get->string('guard_name', isNullable: true);
 

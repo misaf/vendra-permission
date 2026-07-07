@@ -17,7 +17,7 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ViewPer
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas\PermisssionForm;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Tables\PermissionTable;
 use Misaf\VendraPermission\Models\Permission;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Contracts\TenantResolver;
 
 final class PermissionResource extends Resource
 {
@@ -76,7 +76,7 @@ final class PermissionResource extends Resource
 
     public static function canAccess(): bool
     {
-        $tenant = Tenant::current();
+        $tenant = app(TenantResolver::class)->current();
 
         return Feature::for($tenant)->active(PermissionFeatureEnum::MODULE_ENABLED->value)
             && Feature::for($tenant)->active(PermissionFeatureEnum::PERMISSION_MANAGEMENT->value);

@@ -18,7 +18,7 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Pages\ViewRole;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Schemas\RoleForm;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Tables\RoleTable;
 use Misaf\VendraPermission\Models\Role;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Contracts\TenantResolver;
 
 final class RoleResource extends Resource
 {
@@ -84,7 +84,7 @@ final class RoleResource extends Resource
 
     public static function canAccess(): bool
     {
-        $tenant = Tenant::current();
+        $tenant = app(TenantResolver::class)->current();
 
         return Feature::for($tenant)->active(PermissionFeatureEnum::MODULE_ENABLED->value)
             && Feature::for($tenant)->active(PermissionFeatureEnum::ROLE_MANAGEMENT->value);

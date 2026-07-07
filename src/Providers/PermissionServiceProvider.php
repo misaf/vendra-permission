@@ -13,8 +13,9 @@ use Misaf\VendraPermission\Console\Commands\FeatureToggleCommand;
 use Misaf\VendraPermission\Console\Commands\SeedCommand;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
 use Misaf\VendraPermission\PermissionPlugin;
+use Misaf\VendraSupport\Contracts\TenantResolver;
+use Misaf\VendraSupport\Support\TenantAwareness;
 use Misaf\VendraSupport\Support\TenantSeeders;
-use Misaf\VendraTenant\Models\Tenant;
 use Misaf\VendraUser\Models\User;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -86,8 +87,12 @@ final class PermissionServiceProvider extends PackageServiceProvider
                     return false;
                 }
 
-                if ( ! $scope instanceof Tenant) {
-                    return false;
+                if (TenantAwareness::enabled()) {
+                    $tenantModel = app(TenantResolver::class)->modelClass();
+
+                    if ( ! $scope instanceof $tenantModel) {
+                        return false;
+                    }
                 }
 
                 $defaults = Config::array('vendra-permission.features.defaults');

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Misaf\VendraPermission\Console\Commands;
 
 use Illuminate\Console\Command;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Str;
 use Laravel\Pennant\Feature;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Contracts\TenantResolver;
+use Misaf\VendraSupport\Support\TenantAwareness;
 
 final class FeatureToggleCommand extends Command
 {
@@ -51,6 +53,12 @@ final class FeatureToggleCommand extends Command
             return self::INVALID;
         }
 
+        if ( ! TenantAwareness::enabled()) {
+            $this->error('This command requires a tenant provider to be installed.');
+
+            return self::INVALID;
+        }
+
         $tenantInput = $this->getStringArgument('tenant');
 
         if (null === $tenantInput) {
@@ -61,7 +69,7 @@ final class FeatureToggleCommand extends Command
 
         $tenant = $this->resolveTenant($tenantInput);
 
-        if ( ! $tenant instanceof Tenant) {
+        if ( ! $tenant instanceof Model) {
             $this->error("Tenant [{$tenantInput}] was not found.");
 
             return self::FAILURE;
@@ -122,21 +130,9 @@ final class FeatureToggleCommand extends Command
         return self::SUCCESS;
     }
 
-    private function resolveTenant(string $tenantInput): ?Tenant
+    private function resolveTenant(string $tenantInput): ?Model
     {
-        if (is_numeric($tenantInput)) {
-            /** @var Tenant|null $tenant */
-            $tenant = Tenant::query()->find((int) $tenantInput);
-
-            return $tenant;
-        }
-
-        /** @var Tenant|null $tenant */
-        $tenant = Tenant::query()
-            ->where('slug', $tenantInput)
-            ->first();
-
-        return $tenant;
+        return app(TenantResolver::class)->findByKeyOrSlug($tenantInput);
     }
 
     /**

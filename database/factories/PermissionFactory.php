@@ -6,10 +6,11 @@ namespace Misaf\VendraPermission\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Attributes\UseModel;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Misaf\VendraPermission\Models\Permission;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Support\TenantAwareness;
 use RuntimeException;
 
 /**
@@ -23,18 +24,24 @@ final class PermissionFactory extends Factory
         $guardNames = $this->configuredGuardNames();
 
         return [
-            'tenant_id'   => Tenant::factory(),
             'name'        => fake()->sentences(1, true),
             'description' => fake()->realTextBetween(100, 200),
             'guard_name'  => Arr::random($guardNames),
         ];
     }
 
-    public function forTenant(Tenant|int $tenant): static
+    /**
+     * No-op without a tenant provider, since there is no `tenant_id` column.
+     */
+    public function forTenant(Model|int $tenant): static
     {
-        $tenantId = $tenant instanceof Tenant ? $tenant->id : $tenant;
+        if ( ! TenantAwareness::enabled()) {
+            return $this;
+        }
 
-        return $this->state(fn(): array => ['tenant_id' => $tenantId]);
+        return $this->state(fn(): array => [
+            'tenant_id' => $tenant instanceof Model ? $tenant->getKey() : $tenant,
+        ]);
     }
 
     public function forGuard(string $guardName): static

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Misaf\VendraPermission\Database\Seeders;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Misaf\VendraPermission\Actions\CreateRoleAction;
 use Misaf\VendraPermission\Database\Factories\RoleFactory;
 use Misaf\VendraSupport\Concerns\RequiresCurrentTenant;
 use Misaf\VendraSupport\Database\Seeders\DemoContentSeeder as BaseDemoContentSeeder;
-use Misaf\VendraTenant\Models\Tenant;
 
 final class DemoContentSeeder extends BaseDemoContentSeeder
 {
@@ -19,9 +19,9 @@ final class DemoContentSeeder extends BaseDemoContentSeeder
 
     protected function seedFactories(): void
     {
-        $tenant = $this->currentTenant();
+        $this->currentTenantOrNull();
 
-        $this->seedFactoryRecords($tenant);
+        RoleFactory::new()->createOne();
     }
 
     /**
@@ -29,24 +29,17 @@ final class DemoContentSeeder extends BaseDemoContentSeeder
      */
     protected function seedFixtures(array $records): void
     {
-        $tenant = $this->currentTenant();
+        $tenant = $this->currentTenantOrNull();
 
         foreach ($records as $record) {
             $this->seedFixtureRecord($tenant, $record);
         }
     }
 
-    protected function seedFactoryRecords(Tenant $tenant): void
-    {
-        RoleFactory::new()
-            ->forTenant($tenant)
-            ->createOne();
-    }
-
     /**
      * @param  array<string, mixed>  $record
      */
-    protected function seedFixtureRecord(Tenant $tenant, array $record): void
+    protected function seedFixtureRecord(?Model $tenant, array $record): void
     {
         $data = $this->validatedFixtureRecord($record);
 
@@ -60,7 +53,7 @@ final class DemoContentSeeder extends BaseDemoContentSeeder
      *     guard_name: string
      * } $data
      */
-    private function handleSeedFixtureRecord(Tenant $tenant, array $data): void
+    private function handleSeedFixtureRecord(?Model $tenant, array $data): void
     {
         $this->createRoleAction->execute(
             tenant: $tenant,

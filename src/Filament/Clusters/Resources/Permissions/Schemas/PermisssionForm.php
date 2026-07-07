@@ -16,7 +16,7 @@ use Livewire\Component as Livewire;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\RelationManagers\PermissionRelationManager;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas\Components\RolesSelect;
 use Misaf\VendraPermission\Models\Permission;
-use Misaf\VendraTenant\Models\Tenant;
+use Misaf\VendraSupport\Support\TenantAwareness;
 
 final class PermisssionForm
 {
@@ -59,7 +59,7 @@ final class PermisssionForm
                     ->string()
                     ->unique(
                         modifyRuleUsing: function (Unique $rule, Get $get, string $operation): void {
-                            $rule->where('tenant_id', Tenant::current()?->id);
+                            TenantAwareness::constrainUniqueRule($rule);
 
                             if ('create' === $operation && ! empty($get('roles'))) {
                                 $rule->where('id', 0);
