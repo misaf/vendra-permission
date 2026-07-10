@@ -1,92 +1,95 @@
 {
-	"name": "misaf/vendra-permission",
-	"description": "Role and permission management for Vendra, built on top of Spatie Permission",
-	"license": "MIT",
-	"type": "vendra-module",
-	"keywords": [
-		"laravel",
-		"filamentphp",
-		"misaf",
-		"vendra",
-		"permission"
-	],
-	"authors": [
-		{
-			"name": "Ehsan Mahmoodi",
-			"email": "misaf.1990@gmail.com",
-			"role": "Developer"
-		}
-	],
-	"homepage": "https://github.com/misaf/vendra-permission",
-	"support": {
-		"issues": "https://github.com/misaf/vendra-permission/issues",
-		"source": "https://github.com/misaf/vendra-permission"
-	},
-	"require": {
-		"php": "^8.3",
-		"awcodes/filament-badgeable-column": "^4.0",
-		"filament/filament": "^5.0",
-		"illuminate/support": "^13.0",
-		"laravel/pennant": "^1.19",
-		"misaf/vendra-support": "^1.0.0",
-		"misaf/vendra-user": "dev-master",
-		"misaf/filament-jalali": "^5.1",
-		"spatie/laravel-package-tools": "^1.0",
-		"spatie/laravel-permission": "^7.0.0"
-	},
-	"require-dev": {
-		"fakerphp/faker": "^1.0",
-		"larastan/larastan": "^3.0",
-		"laravel/boost": "^2.0",
-		"laravel/pint": "^1.0",
-		"misaf/vendra-testing": "^1.0.0",
-		"mockery/mockery": "^1.0",
-		"nunomaduro/collision": "^8.0",
-		"orchestra/testbench": "^11.0",
-		"pestphp/pest": "^4.0",
-		"pestphp/pest-plugin-arch": "^4.0",
-		"pestphp/pest-plugin-laravel": "^4.0",
-		"pestphp/pest-plugin-livewire": "^4.1",
-		"pestphp/pest-plugin-profanity": "^4.0",
-		"pestphp/pest-plugin-type-coverage": "^4.0",
-		"phpstan/extension-installer": "^1.4"
-	},
-	"minimum-stability": "stable",
-	"prefer-stable": true,
-	"autoload": {
-		"psr-4": {
-			"Misaf\\VendraPermission\\": "src/",
-			"Misaf\\VendraPermission\\Database\\Seeders\\": "database/seeders/"
-		}
-	},
-	"autoload-dev": {
-		"psr-4": {
-			"Misaf\\VendraPermission\\Database\\Factories\\": "database/factories/",
-			"Misaf\\VendraPermission\\Tests\\": "tests/"
-		}
-	},
-	"config": {
-		"allow-plugins": {
-			"pestphp/pest-plugin": true,
-			"php-http/discovery": true,
-			"phpstan/extension-installer": true
-		},
-		"optimize-autoloader": true,
-		"preferred-install": "dist",
-		"sort-packages": true
-	},
-	"extra": {
-		"laravel": {
-			"providers": [
-				"Misaf\\VendraPermission\\Providers\\PermissionServiceProvider"
-			]
-		}
-	},
-	"scripts": {
-		"analyse": "vendor/bin/phpstan analyse",
-		"format": "vendor/bin/pint",
-		"test": "vendor/bin/pest",
-		"test-coverage": "vendor/bin/pest --coverage"
-	},
-	"$schema": "https://getcomposer.org/schema.json"
+    "name": "misaf/vendra-permission",
+    "description": "Role and permission management for Vendra, built on top of Spatie Permission",
+    "keywords": [
+        "laravel",
+        "filamentphp",
+        "misaf",
+        "vendra",
+        "permission"
+    ],
+    "homepage": "https://github.com/misaf/vendra-permission",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ehsan Mahmoodi",
+            "email": "misaf.1990@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "type": "vendra-module",
+    "require": {
+        "php": "^8.3",
+        "awcodes/filament-badgeable-column": "^4.0",
+        "filament/filament": "^5.6.6",
+        "illuminate/support": "^13.0",
+        "laravel/pennant": "^1.19",
+        "misaf/filament-jalali": "^5.1.4",
+        "misaf/vendra-support": "^13.0",
+        "misaf/vendra-user": "^13.0",
+        "spatie/laravel-package-tools": "^1.0",
+        "spatie/laravel-permission": "^7.0.0"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.24.1",
+        "larastan/larastan": "^3.10.0",
+        "laravel/boost": "^2.4.8",
+        "laravel/pint": "^1.27",
+        "misaf/vendra-testing": "^13.0",
+        "mockery/mockery": "^1.6.12",
+        "nunomaduro/collision": "^8.9.4",
+        "orchestra/testbench": "^11.1",
+        "pestphp/pest": "^4.7.2",
+        "pestphp/pest-plugin-arch": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.1",
+        "pestphp/pest-plugin-livewire": "^4.1",
+        "pestphp/pest-plugin-profanity": "^4.0",
+        "pestphp/pest-plugin-type-coverage": "^4.0",
+        "phpstan/extension-installer": "^1.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Misaf\\VendraPermission\\": "src/",
+            "Misaf\\VendraPermission\\Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Misaf\\VendraPermission\\Database\\Factories\\": "database/factories/",
+            "Misaf\\VendraPermission\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Misaf\\VendraPermission\\Providers\\PermissionServiceProvider"
+            ]
+        },
+        "branch-alias": {
+            "dev-master": "13.x-dev"
+        }
+    },
+    "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
+        "format": "vendor/bin/pint",
+        "test": "vendor/bin/pest",
+        "test-coverage": "vendor/bin/pest --coverage"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "support": {
+        "issues": "https://github.com/misaf/vendra-permission/issues",
+        "source": "https://github.com/misaf/vendra-permission"
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "$schema": "https://getcomposer.org/schema.json"
 }

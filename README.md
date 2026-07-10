@@ -74,7 +74,7 @@ Superadmin bypass role is configurable in `config/vendra-permission.php`:
 'super_admin_role' => env('VENDRA_PERMISSION_SUPER_ADMIN_ROLE', 'superadmin'),
 ```
 
-The config key is `super_admin_role` (short and local to this file).  
+The config key is `super_admin_role` (short and local to this file).
 The env var remains `VENDRA_PERMISSION_SUPER_ADMIN_ROLE` (prefixed to avoid global collisions).
 This value is used for both `Gate::after()` superadmin bypass and excluding that role from the roles table query.
 
@@ -214,7 +214,7 @@ Use this package's tenant feature flags and console command to control access in
 - `vendra-permission.permission-management`
 - `vendra-permission.bulk-role-assignment`
 
-Role/permission CRUD and assignment semantics follow Spatie Permission.  
+Role/permission CRUD and assignment semantics follow Spatie Permission.
 See: https://spatie.be/docs/laravel-permission
 
 ## Development
