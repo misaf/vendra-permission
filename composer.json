@@ -1,5 +1,6 @@
 {
     "name": "misaf/vendra-permission",
+    "version": "0.0.1",
     "description": "Role and permission management for Vendra, built on top of Spatie Permission",
     "keywords": [
         "laravel",
