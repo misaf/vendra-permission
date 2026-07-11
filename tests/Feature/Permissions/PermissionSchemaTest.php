@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\CreatePermission;
 use Misaf\VendraPermission\Models\Permission;
+use Misaf\VendraPermission\Tests\Support\PermissionModuleTestContext;
 use Misaf\VendraTenant\Models\Tenant;
 
 use function Pest\Livewire\livewire;
@@ -11,7 +12,7 @@ use function Pest\Livewire\livewire;
 $tenant = null;
 
 beforeEach(function () use (&$tenant): void {
-    $tenant = setUpFilamentAdminContextForPermissionModule();
+    $tenant = PermissionModuleTestContext::setUpFilamentAdminContext();
 });
 
 describe('Filling a form in a test', function () use (&$tenant): void {

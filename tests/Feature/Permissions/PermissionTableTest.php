@@ -6,6 +6,7 @@ use Filament\Tables\Columns\TextColumn;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ListPermissions;
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraPermission\Models\Role;
+use Misaf\VendraPermission\Tests\Support\PermissionModuleTestContext;
 use Misaf\VendraTenant\Models\Tenant;
 
 use function Pest\Livewire\livewire;
@@ -13,7 +14,7 @@ use function Pest\Livewire\livewire;
 $tenant = null;
 
 beforeEach(function () use (&$tenant): void {
-    $tenant = setUpFilamentAdminContextForPermissionModule();
+    $tenant = PermissionModuleTestContext::setUpFilamentAdminContext();
 });
 
 describe('table rendering', function () use (&$tenant): void {
@@ -55,11 +56,13 @@ describe('table rendering', function () use (&$tenant): void {
         $firstGroupPermissions = Permission::factory()
             ->count(10)
             ->forTenant($tenant)
+            ->forGuard('web')
             ->create();
 
         $otherGroupPermissions = Permission::factory()
             ->count(10)
             ->forTenant($tenant)
+            ->forGuard('web')
             ->create();
 
         livewire(ListPermissions::class)
@@ -158,6 +161,7 @@ describe('table sorting', function () use (&$tenant): void {
         $permissions = Permission::factory()
             ->count(3)
             ->forTenant($tenant)
+            ->forGuard('web')
             ->sequence(
                 ['name' => "{$sortPrefix}-c"],
                 ['name' => "{$sortPrefix}-a"],

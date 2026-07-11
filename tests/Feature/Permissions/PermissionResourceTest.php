@@ -8,9 +8,10 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\EditPer
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ListPermissions;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ViewPermission;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\PermissionResource;
+use Misaf\VendraPermission\Tests\Support\PermissionModuleTestContext;
 
 it('allows permission resource access when module and permission management features are active', function (): void {
-    createCurrentTenantForPermissionModule([
+    PermissionModuleTestContext::createCurrentTenant([
         PermissionFeatureEnum::MODULE_ENABLED->value,
         PermissionFeatureEnum::PERMISSION_MANAGEMENT->value,
     ]);
@@ -19,7 +20,7 @@ it('allows permission resource access when module and permission management feat
 });
 
 it('denies permission resource access when permission management feature is inactive', function (): void {
-    createCurrentTenantForPermissionModule([
+    PermissionModuleTestContext::createCurrentTenant([
         PermissionFeatureEnum::MODULE_ENABLED->value,
     ]);
 
