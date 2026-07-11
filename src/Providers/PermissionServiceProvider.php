@@ -14,6 +14,7 @@ use Misaf\VendraPermission\Console\Commands\SeedCommand;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
 use Misaf\VendraPermission\PermissionPlugin;
 use Misaf\VendraSupport\Contracts\TenantResolver;
+use Misaf\VendraSupport\Filament\Concerns\ResolvesConfiguredPanels;
 use Misaf\VendraSupport\Support\TenantAwareness;
 use Misaf\VendraSupport\Support\TenantSeeders;
 use Misaf\VendraUser\Models\User;
@@ -23,6 +24,8 @@ use Spatie\LaravelPackageTools\PackageServiceProvider;
 
 final class PermissionServiceProvider extends PackageServiceProvider
 {
+    use ResolvesConfiguredPanels;
+
     public function configurePackage(Package $package): void
     {
         $package
@@ -47,7 +50,7 @@ final class PermissionServiceProvider extends PackageServiceProvider
     public function packageRegistered(): void
     {
         Panel::configureUsing(function (Panel $panel): void {
-            if ('admin' !== $panel->getId()) {
+            if ( ! $this->shouldRegisterOnPanel($panel->getId(), 'vendra-permission')) {
                 return;
             }
 
