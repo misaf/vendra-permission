@@ -1,6 +1,6 @@
 ---
 name: vendra-permission-development
-description: "Use this skill when creating, modifying, reviewing, or testing the Vendra Permission module in app-modules/vendra-permission, or when creating future permission-like Filament/domain modules. Trigger for `Permission`, `Role` models, vendra-permission migrations, factories, seeders, policies, permission enums, Filament resources, clusters, forms, tables, relation managers, translations, media collections, plugin/service provider wiring, and module configuration."
+description: "Use this skill when creating, modifying, reviewing, or testing the Vendra Permission module in packages/vendra-permission, or when creating future permission-like Filament/domain modules. Trigger for `Permission`, `Role` models, vendra-permission migrations, factories, seeders, policies, permission enums, Filament resources, clusters, forms, tables, relation managers, translations, media collections, plugin/service provider wiring, and module configuration."
 ---
 
 # Vendra Permission
@@ -13,7 +13,7 @@ Before code changes, use Laravel Boost `application-info` and `search-docs` for 
 
 ## Module Boundary
 
-Treat `app-modules/vendra-permission` as the source of permission domain behavior and Filament admin UI.
+Treat `packages/vendra-permission` as the source of permission domain behavior and Filament admin UI.
 
 - Use namespace `Misaf\VendraPermission`.
 - Keep domain models, factories, seeders, policies, observers, console commands, Filament classes, config, migrations, translations, and tests inside this module.
@@ -74,5 +74,5 @@ Prefer focused Pest tests in the module.
 - Add or update unit tests for model contracts, policy permission coverage, resolver-derived tenant awareness, navigation/config behavior, and translation parity.
 - Keep Pest architecture tests in `tests/ArchTest.php`: the `php`, `security`, and `laravel` presets, plus an expectation that the module stays tenant-agnostic, e.g. `arch()->expect('Misaf\VendraPermission')->not->toUse('Misaf\VendraTenant')`.
 - Add feature or Livewire tests when changing Filament behavior with meaningful user-visible effects.
-- Run module checks from the package when possible: `composer --working-dir=app-modules/vendra-permission test` and `composer --working-dir=app-modules/vendra-permission analyse`.
+- Run module checks from the package when possible: `composer --working-dir=packages/vendra-permission test` and `composer --working-dir=packages/vendra-permission analyse`.
 - If PHP files changed, run Pint for the touched code: `vendor/bin/pint --dirty --format agent` from the host app, or the module formatter if working only inside the package.

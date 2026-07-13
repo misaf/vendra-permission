@@ -4,7 +4,7 @@ The `misaf/vendra-permission` package owns role and permission management built 
 
 ### Standards
 
-- Keep permission domain code inside `app-modules/vendra-permission` using the `Misaf\VendraPermission` namespace.
+- Keep permission domain code inside `packages/vendra-permission` using the `Misaf\VendraPermission` namespace.
 - Use this package for models, migrations, factories, seeders, policies, permission enums, observers, Filament resources, translations, config, and package bootstrapping.
 - `Permission` and `Role` extend Spatie Permission models; `tenant_id` is added by `TenantSchema::enabled()`-guarded migrations and Pennant features are scoped through the resolver's model class, never a concrete `Tenant`.
 - Follow existing model conventions where they apply: tenant ownership, translated `name` / `description` / `slug`, soft deletes, sortable `position`, media collections, factories, and typed relationships.

@@ -1,6 +1,5 @@
 {
     "name": "misaf/vendra-permission",
-    "version": "0.0.7",
     "description": "Role and permission management for Vendra, built on top of Spatie Permission",
     "keywords": [
         "laravel",
@@ -61,13 +60,13 @@
         }
     },
     "extra": {
+        "branch-alias": {
+            "dev-master": "0.0.x-dev"
+        },
         "laravel": {
             "providers": [
                 "Misaf\\VendraPermission\\Providers\\PermissionServiceProvider"
             ]
-        },
-        "branch-alias": {
-            "dev-master": "13.x-dev"
         }
     },
     "scripts": {
