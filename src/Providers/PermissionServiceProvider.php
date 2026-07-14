@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Misaf\VendraPermission\Providers;
 
+use Composer\InstalledVersions;
+
 use Filament\Panel;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Facades\Config;
@@ -62,7 +64,7 @@ final class PermissionServiceProvider extends PackageServiceProvider
     {
         $this->app->make(TenantSeeders::class)->register('vendra-permission:seed', priority: 10);
 
-        AboutCommand::add('Vendra Permission', fn() => ['Version' => 'dev-master']);
+        AboutCommand::add('Vendra Permission', fn() => ['Version' => InstalledVersions::getPrettyVersion('misaf/vendra-permission')]);
 
         Gate::after(function (User $user): ?true {
             return $user->hasRole(Config::string('vendra-permission.super_admin_role', 'superadmin')) ? true : null;
