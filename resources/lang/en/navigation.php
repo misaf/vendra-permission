@@ -3,7 +3,9 @@
 declare(strict_types=1);
 
 return [
-    'permission'            => 'Permissions',
+    'permission'            => 'Permission',
     'permission_management' => 'Permission Management',
-    'role'                  => 'Roles',
+    'permissions'           => 'Permissions',
+    'role'                  => 'Role',
+    'roles'                 => 'Roles',
 ];

@@ -22,13 +22,15 @@ use Misaf\VendraPermission\Models\Role;
 use Misaf\VendraSupport\Contracts\TenantResolver;
 use Misaf\VendraSupport\Filament\Clusters\CustomersCluster;
 
+use Misaf\VendraSupport\Filament\Navigation\NavigationPriority;
+
 final class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
 
-    protected static ?int $navigationSort = 1;
+    protected static ?int $navigationSort = NavigationPriority::Roles->value;
 
     protected static ?string $slug = 'roles';
 
@@ -44,19 +46,14 @@ final class RoleResource extends Resource
         return __('vendra-permission::navigation.role');
     }
 
-    public static function getNavigationGroup(): string
-    {
-        return __('vendra-permission::navigation.permission_management');
-    }
-
     public static function getNavigationLabel(): string
     {
-        return __('vendra-permission::navigation.role');
+        return __('vendra-permission::navigation.roles');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('vendra-permission::navigation.role');
+        return __('vendra-permission::navigation.roles');
     }
 
     public static function getRelations(): array

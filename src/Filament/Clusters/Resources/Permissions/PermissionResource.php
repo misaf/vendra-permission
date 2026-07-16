@@ -21,13 +21,15 @@ use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraSupport\Contracts\TenantResolver;
 use Misaf\VendraSupport\Filament\Clusters\CustomersCluster;
 
+use Misaf\VendraSupport\Filament\Navigation\NavigationPriority;
+
 final class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
 
-    protected static ?int $navigationSort = 2;
+    protected static ?int $navigationSort = NavigationPriority::Permissions->value;
 
     protected static ?string $slug = 'permissions';
 
@@ -43,19 +45,14 @@ final class PermissionResource extends Resource
         return __('vendra-permission::navigation.permission');
     }
 
-    public static function getNavigationGroup(): string
-    {
-        return __('vendra-permission::navigation.permission_management');
-    }
-
     public static function getNavigationLabel(): string
     {
-        return __('vendra-permission::navigation.permission');
+        return __('vendra-permission::navigation.permissions');
     }
 
     public static function getPluralModelLabel(): string
     {
-        return __('vendra-permission::navigation.permission');
+        return __('vendra-permission::navigation.permissions');
     }
 
     public static function getPages(): array
