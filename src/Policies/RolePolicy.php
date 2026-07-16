@@ -4,67 +4,31 @@ declare(strict_types=1);
 
 namespace Misaf\VendraPermission\Policies;
 
-use Illuminate\Auth\Access\HandlesAuthorization;
-use Illuminate\Contracts\Auth\Access\Authorizable;
 use Misaf\VendraPermission\Enums\RolePolicyEnum;
-use Misaf\VendraPermission\Models\Role;
+use Misaf\VendraSupport\Concerns\AuthorizesCreateAbilities;
+use Misaf\VendraSupport\Concerns\AuthorizesDeleteAbilities;
+use Misaf\VendraSupport\Concerns\AuthorizesForceDeleteAbilities;
+use Misaf\VendraSupport\Concerns\AuthorizesReplicateAbilities;
+use Misaf\VendraSupport\Concerns\AuthorizesRestoreAbilities;
+use Misaf\VendraSupport\Concerns\AuthorizesSandboxMode;
+use Misaf\VendraSupport\Concerns\AuthorizesUpdateAbilities;
+use Misaf\VendraSupport\Concerns\AuthorizesViewAbilities;
+use Misaf\VendraSupport\Concerns\ResolvesPolicyPermissions;
 
 final class RolePolicy
 {
-    use HandlesAuthorization;
+    use AuthorizesCreateAbilities;
+    use AuthorizesDeleteAbilities;
+    use AuthorizesForceDeleteAbilities;
+    use AuthorizesReplicateAbilities;
+    use AuthorizesRestoreAbilities;
+    use AuthorizesSandboxMode;
+    use AuthorizesUpdateAbilities;
+    use AuthorizesViewAbilities;
+    use ResolvesPolicyPermissions;
 
-    public function create(Authorizable $user): bool
+    protected static function permissionEnum(): string
     {
-        return $user->can(RolePolicyEnum::CREATE->value);
-    }
-
-    public function delete(Authorizable $user, Role $role): bool
-    {
-        return $user->can(RolePolicyEnum::DELETE->value);
-    }
-
-    public function deleteAny(Authorizable $user): bool
-    {
-        return $user->can(RolePolicyEnum::DELETE_ANY->value);
-    }
-
-    public function forceDelete(Authorizable $user, Role $role): bool
-    {
-        return $user->can(RolePolicyEnum::FORCE_DELETE->value);
-    }
-
-    public function forceDeleteAny(Authorizable $user): bool
-    {
-        return $user->can(RolePolicyEnum::FORCE_DELETE_ANY->value);
-    }
-
-    public function replicate(Authorizable $user, Role $role): bool
-    {
-        return $user->can(RolePolicyEnum::REPLICATE->value);
-    }
-
-    public function restore(Authorizable $user, Role $role): bool
-    {
-        return $user->can(RolePolicyEnum::RESTORE->value);
-    }
-
-    public function restoreAny(Authorizable $user): bool
-    {
-        return $user->can(RolePolicyEnum::RESTORE_ANY->value);
-    }
-
-    public function update(Authorizable $user, Role $role): bool
-    {
-        return $user->can(RolePolicyEnum::UPDATE->value);
-    }
-
-    public function view(Authorizable $user, Role $role): bool
-    {
-        return $user->can(RolePolicyEnum::VIEW->value);
-    }
-
-    public function viewAny(Authorizable $user): bool
-    {
-        return $user->can(RolePolicyEnum::VIEW_ANY->value);
+        return RolePolicyEnum::class;
     }
 }

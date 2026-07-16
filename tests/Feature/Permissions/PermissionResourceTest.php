@@ -12,8 +12,8 @@ use Misaf\VendraPermission\Tests\Support\PermissionModuleTestContext;
 
 it('allows permission resource access when module and permission management features are active', function (): void {
     PermissionModuleTestContext::createCurrentTenant([
-        PermissionFeatureEnum::MODULE_ENABLED->value,
-        PermissionFeatureEnum::PERMISSION_MANAGEMENT->value,
+        PermissionFeatureEnum::ModuleEnabled->value,
+        PermissionFeatureEnum::PermissionManagement->value,
     ]);
 
     expect(PermissionResource::canAccess())->toBeTrue();
@@ -21,7 +21,7 @@ it('allows permission resource access when module and permission management feat
 
 it('denies permission resource access when permission management feature is inactive', function (): void {
     PermissionModuleTestContext::createCurrentTenant([
-        PermissionFeatureEnum::MODULE_ENABLED->value,
+        PermissionFeatureEnum::ModuleEnabled->value,
     ]);
 
     expect(PermissionResource::canAccess())->toBeFalse();

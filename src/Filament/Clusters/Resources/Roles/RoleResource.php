@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Misaf\VendraPermission\Filament\Clusters\Resources\Roles;
 
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Laravel\Pennant\Feature;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
-use Misaf\VendraPermission\Filament\Clusters\PermissionsCluster;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\RelationManagers\PermissionRelationManager;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Pages\CreateRole;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Pages\EditRole;
@@ -19,16 +20,19 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Schemas\RoleForm;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Tables\RoleTable;
 use Misaf\VendraPermission\Models\Role;
 use Misaf\VendraSupport\Contracts\TenantResolver;
+use Misaf\VendraSupport\Filament\Clusters\CustomersCluster;
 
 final class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedShieldCheck;
+
     protected static ?int $navigationSort = 1;
 
     protected static ?string $slug = 'roles';
 
-    protected static ?string $cluster = PermissionsCluster::class;
+    protected static ?string $cluster = CustomersCluster::class;
 
     public static function getBreadcrumb(): string
     {
@@ -86,7 +90,7 @@ final class RoleResource extends Resource
     {
         $tenant = app(TenantResolver::class)->current();
 
-        return Feature::for($tenant)->active(PermissionFeatureEnum::MODULE_ENABLED->value)
-            && Feature::for($tenant)->active(PermissionFeatureEnum::ROLE_MANAGEMENT->value);
+        return Feature::for($tenant)->active(PermissionFeatureEnum::ModuleEnabled->value)
+            && Feature::for($tenant)->active(PermissionFeatureEnum::RoleManagement->value);
     }
 }

@@ -1,13 +1,13 @@
 ---
 name: vendra-permission-development
-description: "Use this skill when creating, modifying, reviewing, or testing the Vendra Permission module in packages/vendra-permission, or when creating future permission-like Filament/domain modules. Trigger for `Permission`, `Role` models, vendra-permission migrations, factories, seeders, policies, permission enums, Filament resources, clusters, forms, tables, relation managers, translations, media collections, plugin/service provider wiring, and module configuration."
+description: "Create, modify, review, or test the Vendra Permission package in packages/vendra-permission. Use for Role, Permission, Spatie Permission integration, role creation actions, guards and teams, policy enums and seeders, migrations, Filament resources and relation managers, configuration, translations, package wiring, and authorization tests."
 ---
 
 # Vendra Permission
 
-## Required Context
+## Workflow
 
-Always use this skill together with `modular` for module structure, `laravel-best-practices` for Laravel PHP, and `pest-testing` when tests are added or changed. Use `tailwindcss-development` only when editing Blade or Tailwind UI.
+Always use this skill together with `laravel-best-practices` for Laravel PHP and `pest-testing` when tests are added or changed. Use `tailwindcss-development` only when editing Blade or Tailwind UI.
 
 Before code changes, use Laravel Boost `application-info` and `search-docs` for the relevant packages. Prefer Boost database and browser tools over ad hoc debugging.
 
@@ -26,14 +26,10 @@ Follow the existing `Permission` and `Role` patterns for new permission entities
 
 - Use `declare(strict_types=1)`, final classes, typed method signatures, and PHPDoc generics for relationships.
 - Follow Laravel comment style: document with PHPDoc (array shapes, generics, `@see`) and reserve inline comments for genuinely complex logic. Match the surrounding file's density and do not add comments that restate the code.
-- Prefer the Laravel attributes already used here, such as `#[Fillable]`, `#[Hidden]`, `#[UseFactory]`, and `#[ObservedBy]`.
+- Prefer only the Laravel attributes already used by the affected sibling model; do not add model attributes merely because another package uses them.
 - Keep the module tenant-agnostic: derive tenant awareness purely from the bound `TenantResolver` in `misaf/vendra-support` (`TenantAwareness`, `BelongsToTenant`, `TenantSchema`, `RequiresCurrentTenant`). The module must build and run whether or not a tenant provider is installed, so never reference a concrete provider such as `Misaf\VendraTenant` anywhere — models, migrations, factories, seeders, or fixtures. There is no `tenant_aware` config toggle.
 - Hide `tenant_id` and keep tenant behavior centralized in the support layer; do not duplicate tenant scoping or `tenant_id` assignment in models, Filament resources, factories, or seeders. `BelongsToTenant` assigns `tenant_id` on `creating` from the current tenant.
-- Use `HasTranslations` for localized `name`, `description`, and `slug`-like fields where the entity is translatable.
-- Use `SoftDeletes` for user-managed content records unless there is a clear reason not to.
-- Use `SortableTrait` and an integer `position` field for ordered admin content.
-- For media-enabled records, implement `HasMedia`, use `InteractsWithMedia` with `HasDefaultMediaConversions`, expose a `multimedia()` morph relation, and define a stable `MEDIA_COLLECTION` constant.
-- For slugs, use `Spatie\Sluggable\SlugOptions`, generate from translated names, and prevent overwrite unless regeneration is intended.
+- Reuse only the traits and conventions present on the affected sibling model; do not infer translations, media, slugs, sorting, or soft deletes from another package.
 - `Permission` and `Role` extend Spatie Permission models; `tenant_id` is added by `TenantSchema::enabled()`-guarded migrations and Pennant features are scoped through the resolver's model class, never a concrete `Tenant`.
 
 ## Filament Standards

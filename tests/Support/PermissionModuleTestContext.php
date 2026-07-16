@@ -42,9 +42,9 @@ final class PermissionModuleTestContext
     public static function setUpFilamentAdminContext(): Tenant
     {
         $tenant = self::createCurrentTenant([
-            PermissionFeatureEnum::MODULE_ENABLED->value,
-            PermissionFeatureEnum::PERMISSION_MANAGEMENT->value,
-            PermissionFeatureEnum::ROLE_MANAGEMENT->value,
+            PermissionFeatureEnum::ModuleEnabled->value,
+            PermissionFeatureEnum::PermissionManagement->value,
+            PermissionFeatureEnum::RoleManagement->value,
         ]);
 
         $superAdminRole = Role::factory()

@@ -6,8 +6,8 @@ namespace Misaf\VendraPermission\Enums;
 
 enum PermissionFeatureEnum: string
 {
-    case MODULE_ENABLED = 'vendra-permission.module-enabled';
-    case ROLE_MANAGEMENT = 'vendra-permission.role-management';
-    case PERMISSION_MANAGEMENT = 'vendra-permission.permission-management';
-    case BULK_ROLE_ASSIGNMENT = 'vendra-permission.bulk-role-assignment';
+    case ModuleEnabled = 'vendra-permission.module-enabled';
+    case RoleManagement = 'vendra-permission.role-management';
+    case PermissionManagement = 'vendra-permission.permission-management';
+    case BulkRoleAssignment = 'vendra-permission.bulk-role-assignment';
 }

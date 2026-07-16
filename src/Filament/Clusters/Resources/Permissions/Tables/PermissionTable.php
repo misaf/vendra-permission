@@ -129,7 +129,7 @@ final class PermissionTable
     {
         $tenant = app(TenantResolver::class)->current();
 
-        return Feature::for($tenant)->active(PermissionFeatureEnum::MODULE_ENABLED->value)
-            && Feature::for($tenant)->active(PermissionFeatureEnum::BULK_ROLE_ASSIGNMENT->value);
+        return Feature::for($tenant)->active(PermissionFeatureEnum::ModuleEnabled->value)
+            && Feature::for($tenant)->active(PermissionFeatureEnum::BulkRoleAssignment->value);
     }
 }

@@ -6,15 +6,15 @@ namespace Misaf\VendraPermission\Enums;
 
 enum RolePolicyEnum: string
 {
-    case CREATE = 'create-role';
-    case DELETE = 'delete-role';
-    case DELETE_ANY = 'delete-any-role';
-    case FORCE_DELETE = 'force-delete-role';
-    case FORCE_DELETE_ANY = 'force-delete-any-role';
-    case REPLICATE = 'replicate-role';
-    case RESTORE = 'restore-role';
-    case RESTORE_ANY = 'restore-any-role';
-    case UPDATE = 'update-role';
-    case VIEW = 'view-role';
-    case VIEW_ANY = 'view-any-role';
+    case Create = 'create-role';
+    case Delete = 'delete-role';
+    case DeleteAny = 'delete-any-role';
+    case ForceDelete = 'force-delete-role';
+    case ForceDeleteAny = 'force-delete-any-role';
+    case Replicate = 'replicate-role';
+    case Restore = 'restore-role';
+    case RestoreAny = 'restore-any-role';
+    case Update = 'update-role';
+    case View = 'view-role';
+    case ViewAny = 'view-any-role';
 }

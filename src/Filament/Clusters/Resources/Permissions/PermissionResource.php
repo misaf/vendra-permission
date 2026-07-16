@@ -4,12 +4,13 @@ declare(strict_types=1);
 
 namespace Misaf\VendraPermission\Filament\Clusters\Resources\Permissions;
 
+use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 use Laravel\Pennant\Feature;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
-use Misaf\VendraPermission\Filament\Clusters\PermissionsCluster;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\CreatePermission;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\EditPermission;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ListPermissions;
@@ -18,16 +19,19 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas\Permi
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Tables\PermissionTable;
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraSupport\Contracts\TenantResolver;
+use Misaf\VendraSupport\Filament\Clusters\CustomersCluster;
 
 final class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
 
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedKey;
+
     protected static ?int $navigationSort = 2;
 
     protected static ?string $slug = 'permissions';
 
-    protected static ?string $cluster = PermissionsCluster::class;
+    protected static ?string $cluster = CustomersCluster::class;
 
     public static function getBreadcrumb(): string
     {
@@ -78,7 +82,7 @@ final class PermissionResource extends Resource
     {
         $tenant = app(TenantResolver::class)->current();
 
-        return Feature::for($tenant)->active(PermissionFeatureEnum::MODULE_ENABLED->value)
-            && Feature::for($tenant)->active(PermissionFeatureEnum::PERMISSION_MANAGEMENT->value);
+        return Feature::for($tenant)->active(PermissionFeatureEnum::ModuleEnabled->value)
+            && Feature::for($tenant)->active(PermissionFeatureEnum::PermissionManagement->value);
     }
 }

@@ -26,9 +26,9 @@ final class PermissionPlugin implements Plugin
 
     public function register(Panel $panel): void
     {
-        $panel->discoverClusters(
-            in: __DIR__ . '/Filament/Clusters',
-            for: 'Misaf\\VendraPermission\\Filament\\Clusters',
+        $panel->discoverResources(
+            in: __DIR__ . '/Filament/Clusters/Resources',
+            for: 'Misaf\\VendraPermission\\Filament\\Clusters\\Resources',
         );
     }
 
