@@ -6,6 +6,7 @@ namespace Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions
 
 use Filament\Actions\BulkAction;
 use Filament\Actions\Concerns\CanCustomizeProcess;
+use Filament\Support\Icons\Heroicon;
 use Illuminate\Database\Eloquent\Collection;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Roles\Concerns\ResolvesSelected;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas\Components\RolesSelect;
@@ -30,11 +31,11 @@ final class SyncBulkAction extends BulkAction
 
         $this->color('primary');
 
-        $this->icon('heroicon-o-link');
+        $this->icon(Heroicon::OutlinedLink);
 
         $this->requiresConfirmation();
 
-        $this->modalIcon('heroicon-o-link');
+        $this->modalIcon(Heroicon::OutlinedLink);
 
         $this->schema([
             RolesSelect::make('roles')

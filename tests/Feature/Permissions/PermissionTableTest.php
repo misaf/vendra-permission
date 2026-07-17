@@ -3,11 +3,13 @@
 declare(strict_types=1);
 
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ListPermissions;
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraPermission\Models\Role;
 use Misaf\VendraPermission\Tests\Support\PermissionModuleTestContext;
 use Misaf\VendraTenant\Models\Tenant;
+use Morilog\Jalali\Jalalian;
 
 use function Pest\Livewire\livewire;
 
@@ -57,21 +59,23 @@ describe('table rendering', function () use (&$tenant): void {
             ->count(10)
             ->forTenant($tenant)
             ->forGuard('web')
+            ->sequence(fn(Sequence $sequence): array => ['name' => sprintf('a-permission-%02d', $sequence->index)])
             ->create();
 
         $otherGroupPermissions = Permission::factory()
             ->count(10)
             ->forTenant($tenant)
             ->forGuard('web')
+            ->sequence(fn(Sequence $sequence): array => ['name' => sprintf('z-permission-%02d', $sequence->index)])
             ->create();
 
         livewire(ListPermissions::class)
             ->loadTable()
-            ->assertCanSeeTableRecords($firstGroupPermissions)
-            ->assertCanNotSeeTableRecords($otherGroupPermissions)
-            ->call('gotoPage', 2)
             ->assertCanSeeTableRecords($otherGroupPermissions)
-            ->assertCanNotSeeTableRecords($firstGroupPermissions);
+            ->assertCanNotSeeTableRecords($firstGroupPermissions)
+            ->call('gotoPage', 2)
+            ->assertCanSeeTableRecords($firstGroupPermissions)
+            ->assertCanNotSeeTableRecords($otherGroupPermissions);
     });
 
     it('shows empty table when no records exist', function (): void {
@@ -293,9 +297,13 @@ describe('column states', function () use (&$tenant): void {
             ->forGuard('web')
             ->create();
 
+        $expected = app()->isLocale('fa')
+            ? Jalalian::fromCarbon($permission->{$column})->format('Y-m-d H:i')
+            : $permission->{$column}->format('Y-m-d H:i');
+
         livewire(ListPermissions::class)
             ->loadTable()
-            ->assertTableColumnFormattedStateSet($column, $permission->{$column}->format('Y-m-d H:i'), $permission);
+            ->assertTableColumnFormattedStateSet($column, $expected, $permission);
     })->with([
         'created at column' => 'created_at',
         'updated at column' => 'updated_at',

@@ -27,6 +27,7 @@ final class RoleForm
                     ->columnSpan(['lg' => 1])
                     ->label(__('vendra-permission::attributes.name'))
                     ->live(debounce: 500)
+                    ->maxLength(255)
                     ->required()
                     ->string()
                     ->unique(

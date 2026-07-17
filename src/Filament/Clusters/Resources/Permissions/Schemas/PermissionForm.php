@@ -18,7 +18,7 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas\Compo
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraSupport\Support\TenantAwareness;
 
-final class PermisssionForm
+final class PermissionForm
 {
     public static function configure(Schema $schema): Schema
     {
@@ -55,6 +55,7 @@ final class PermisssionForm
                     ->columnSpan(fn(Get $get) => empty($get('roles')) ? ['lg' => 1] : 'full')
                     ->label(__('vendra-permission::attributes.name'))
                     ->live()
+                    ->maxLength(255)
                     ->required()
                     ->string()
                     ->unique(

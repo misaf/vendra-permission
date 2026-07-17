@@ -38,7 +38,7 @@ final class PermissionTable
         $columns = [
             TextColumn::make('row')
                 ->label('#')
-                ->rowIndex(),
+                ->rowIndex()->sortable(),
 
             TextColumn::make('roles.name')
                 ->alignStart()
@@ -63,7 +63,7 @@ final class PermissionTable
                 ->label(__('vendra-permission::table.columns.created_at'))
                 ->sinceTooltip()
                 ->toggleable(isToggledHiddenByDefault: true)
-                ->unless(
+                ->when(
                     app()->isLocale('fa'),
                     fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                     fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -76,7 +76,7 @@ final class PermissionTable
                 ->label(__('vendra-permission::table.columns.updated_at'))
                 ->sinceTooltip()
                 ->toggleable(isToggledHiddenByDefault: true)
-                ->unless(
+                ->when(
                     app()->isLocale('fa'),
                     fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                     fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -122,7 +122,8 @@ final class PermissionTable
             ->defaultGroup(
                 Group::make('guard_name')
                     ->label(__('vendra-permission::table.groups.guard'))
-            );
+            )
+            ->defaultSort(column: 'id', direction: 'desc');
     }
 
     private static function canUseBulkRoleAssignment(): bool

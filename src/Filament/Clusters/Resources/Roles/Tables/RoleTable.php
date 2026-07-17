@@ -24,7 +24,6 @@ use Filament\Tables\Filters\QueryBuilder\Constraints\TextConstraint;
 use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Number;
 use Misaf\VendraPermission\Models\Role;
@@ -33,13 +32,15 @@ final class RoleTable
 {
     public static function configure(Table $table): Table
     {
+        $guards = array_map(strval(...), array_keys(Config::array('auth.guards')));
+
         /**
          * @var array<int, Column|ColumnGroup|LayoutComponent> $columns
          */
         $columns = [
             TextColumn::make('row')
                 ->label('#')
-                ->rowIndex(),
+                ->rowIndex()->sortable(),
 
             BadgeableColumn::make('name')
                 ->alignStart()
@@ -48,7 +49,7 @@ final class RoleTable
                 ->searchable()
                 ->suffixBadges([
                     Badge::make('count')
-                        ->label(fn(Role $record): string => Number::format($record->permissions_count))
+                        ->label(fn(Role $record): string => (string) Number::format($record->permissions_count))
                         ->size(Size::Small),
                 ]),
 
@@ -59,7 +60,7 @@ final class RoleTable
                 ->label(__('vendra-permission::table.columns.created_at'))
                 ->sinceTooltip()
                 ->toggleable(isToggledHiddenByDefault: true)
-                ->unless(
+                ->when(
                     app()->isLocale('fa'),
                     fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                     fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -72,7 +73,7 @@ final class RoleTable
                 ->label(__('vendra-permission::table.columns.updated_at'))
                 ->sinceTooltip()
                 ->toggleable(isToggledHiddenByDefault: true)
-                ->unless(
+                ->when(
                     app()->isLocale('fa'),
                     fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
                     fn(TextColumn $column) => $column->dateTime('Y-m-d H:i')
@@ -91,10 +92,7 @@ final class RoleTable
 
                             SelectConstraint::make('guard_name')
                                 ->label(__('vendra-permission::table.columns.guard_name'))
-                                ->options(Arr::mapWithKeys(
-                                    array_keys(Config::array('auth.guards')),
-                                    fn(string $guard): array => [$guard => $guard],
-                                ))
+                                ->options(array_combine($guards, $guards))
                                 ->multiple(),
                         ]),
                 ],
@@ -117,6 +115,7 @@ final class RoleTable
             ->defaultGroup(
                 Group::make('guard_name')
                     ->label(__('vendra-permission::table.groups.guard'))
-            );
+            )
+            ->defaultSort(column: 'id', direction: 'desc');
     }
 }
