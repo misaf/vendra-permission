@@ -12,7 +12,7 @@ The `misaf/vendra-permission` package owns role and permission management built 
 
 - Keep permission domain code inside `packages/vendra-permission` using the `Misaf\VendraPermission` namespace.
 - Use this package for models, migrations, factories, seeders, policies, permission enums, observers, Filament resources, translations, config, and package bootstrapping.
-- `Permission` and `Role` extend Spatie Permission models; `tenant_id` is added by `TenantSchema::enabled()`-guarded migrations and Pennant features are scoped through the resolver's model class, never a concrete `Tenant`.
+- `Permission` and `Role` extend Spatie Permission models; the package's single final create migration conditionally includes `tenant_id` through `TenantSchema` and includes Vendra descriptions. Do not publish Spatie's base migration separately. Pennant features are scoped through the resolver's model class, never a concrete `Tenant`.
 - Follow the concrete models and neighboring files in this package; do not apply translation, media, slug, sorting, or soft-delete patterns unless the affected model already uses them.
 - Tenant awareness is owned by `misaf/vendra-support` via `Misaf\VendraSupport\Support\TenantAwareness`, which derives purely from the bound `TenantResolver`. Installing a tenant provider (e.g. `misaf/vendra-tenant`) makes the app tenant-aware; without one the default null resolver keeps it disabled. The module defines no `tenant_aware` config.
 - Keep the module tenant-agnostic: it must build and run with or without a tenant provider. Never reference a concrete provider such as `Misaf\VendraTenant` anywhere — models, migrations, factories, seeders, or fixtures. Let `BelongsToTenant` assign `tenant_id`; do not set it manually.

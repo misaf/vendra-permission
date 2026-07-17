@@ -35,10 +35,7 @@ final class PermissionServiceProvider extends PackageServiceProvider
             ->hasConfigFile()
             ->hasTranslations()
             ->hasMigrations([
-                'add_tenant_id_column_to_roles_table',
-                'add_tenant_id_column_to_permissions_table',
-                'add_description_column_to_roles_table',
-                'add_description_column_to_permissions_table',
+                'create_permission_tables',
             ])
             ->hasCommands(
                 FeatureToggleCommand::class,
