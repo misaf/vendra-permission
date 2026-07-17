@@ -40,7 +40,7 @@ final class RoleTable
         $columns = [
             TextColumn::make('row')
                 ->label('#')
-                ->rowIndex()->sortable(),
+                ->rowIndex()->sortable(['id']),
 
             BadgeableColumn::make('name')
                 ->alignStart()
