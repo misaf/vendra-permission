@@ -17,6 +17,7 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Pages\EditRole;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Pages\ListRoles;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Pages\ViewRole;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Schemas\RoleForm;
+use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Schemas\RoleInfolist;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\Tables\RoleTable;
 use Misaf\VendraPermission\Models\Role;
 use Misaf\VendraSupport\Contracts\TenantResolver;
@@ -76,6 +77,11 @@ final class RoleResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return RoleForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return RoleInfolist::configure($schema);
     }
 
     public static function table(Table $table): Table

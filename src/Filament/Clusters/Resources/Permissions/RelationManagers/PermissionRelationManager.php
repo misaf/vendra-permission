@@ -8,7 +8,6 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Schemas\Schema;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Number;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Permissions\AttachAction;
@@ -16,11 +15,13 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Permi
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Permissions\DetachAction;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Permissions\DetachBulkAction;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\PermissionResource;
-use Misaf\VendraPermission\Models\Permission;
+use Misaf\VendraPermission\Models\Role;
 
 final class PermissionRelationManager extends RelationManager
 {
     protected static string $relationship = 'permissions';
+
+    protected static bool $isBadgeDeferred = true;
 
     public static function getModelLabel(): string
     {
@@ -29,12 +30,12 @@ final class PermissionRelationManager extends RelationManager
 
     public static function getPluralModelLabel(): string
     {
-        return __('vendra-permission::navigation.permission');
+        return __('vendra-permission::navigation.permissions');
     }
 
     public static function getTitle(Model $ownerRecord, string $pageClass): string
     {
-        return __('vendra-permission::navigation.permission');
+        return __('vendra-permission::navigation.permissions');
     }
 
     public function isReadOnly(): bool
@@ -44,10 +45,11 @@ final class PermissionRelationManager extends RelationManager
 
     public static function getBadge(Model $ownerRecord, string $pageClass): string
     {
-        /** @var Collection<int, Permission> $permissions */
-        $permissions = $ownerRecord->getRelation('permissions') ?? collect();
+        if ( ! $ownerRecord instanceof Role) {
+            return (string) Number::format(0);
+        }
 
-        return (string) Number::format($permissions->count());
+        return (string) Number::format($ownerRecord->permissions()->count());
     }
 
     public function form(Schema $schema): Schema

@@ -271,9 +271,20 @@ describe('column states', function () use (&$tenant): void {
 
         $role->givePermissionTo($permission);
 
-        livewire(ListPermissions::class)
-            ->loadTable()
-            ->assertTableColumnFormattedStateSet('roles.name', $permission->roles()->pluck('name'), $permission);
+        $component = livewire(ListPermissions::class)
+            ->loadTable();
+
+        $column = $component->instance()->getTable()->getColumn('roles.name');
+
+        expect($column)->toBeInstanceOf(TextColumn::class);
+
+        assert($column instanceof TextColumn);
+
+        $column->record($permission);
+        $column->clearCachedState();
+
+        expect($column->formatState($column->getState()))
+            ->toBe($permission->roles()->pluck('name')->all());
     });
 
     it('formats name column state', function () use (&$tenant): void {

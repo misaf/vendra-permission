@@ -16,6 +16,7 @@ use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\EditPer
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ListPermissions;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ViewPermission;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas\PermissionForm;
+use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas\PermissionInfolist;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Tables\PermissionTable;
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraSupport\Contracts\TenantResolver;
@@ -68,6 +69,11 @@ final class PermissionResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return PermissionForm::configure($schema);
+    }
+
+    public static function infolist(Schema $schema): Schema
+    {
+        return PermissionInfolist::configure($schema);
     }
 
     public static function table(Table $table): Table

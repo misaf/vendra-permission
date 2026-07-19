@@ -21,7 +21,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\QueryBuilder;
 use Filament\Tables\Filters\QueryBuilder\Constraints\TextConstraint;
-use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Config;
@@ -52,7 +51,8 @@ final class RoleTable
                     Badge::make('count')
                         ->label(fn(Role $record): string => (string) Number::format($record->permissions_count))
                         ->size(Size::Small),
-                ]),
+                ])
+                ->suffix(''),
 
             TextColumn::make('created_at')
                 ->alignCenter()
@@ -60,7 +60,6 @@ final class RoleTable
                 ->extraCellAttributes(['dir' => 'ltr'])
                 ->label(__('vendra-permission::table.columns.created_at'))
                 ->sinceTooltip()
-                ->toggleable(isToggledHiddenByDefault: true)
                 ->when(
                     app()->isLocale('fa'),
                     fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
@@ -73,7 +72,6 @@ final class RoleTable
                 ->extraCellAttributes(['dir' => 'ltr'])
                 ->label(__('vendra-permission::table.columns.updated_at'))
                 ->sinceTooltip()
-                ->toggleable(isToggledHiddenByDefault: true)
                 ->when(
                     app()->isLocale('fa'),
                     fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
@@ -113,10 +111,6 @@ final class RoleTable
                     DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultGroup(
-                Group::make('guard_name')
-                    ->label(__('vendra-permission::table.groups.guard'))
-            )
             ->defaultSort(column: 'id', direction: 'desc');
     }
 }

@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 use Filament\Facades\Filament;
+use Illuminate\Support\Str;
 use Misaf\VendraPermission\Database\Factories\PermissionFactory;
 use Misaf\VendraPermission\Database\Factories\RoleFactory;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\CreatePermission;
@@ -67,4 +68,26 @@ it('renders the view role page under strict authorization', function (): void {
 
     livewire(ViewRole::class, ['record' => $role->getKey()])
         ->assertOk();
+});
+
+it('limits permission and role descriptions to their database length', function (): void {
+    $description = Str::repeat('a', 256);
+
+    livewire(CreatePermission::class)
+        ->fillForm([
+            'name'        => 'long-description-permission',
+            'guard_name'  => 'web',
+            'description' => $description,
+        ])
+        ->call('create')
+        ->assertHasFormErrors(['description' => 'max']);
+
+    livewire(CreateRole::class)
+        ->fillForm([
+            'name'        => 'long-description-role',
+            'guard_name'  => 'web',
+            'description' => $description,
+        ])
+        ->call('create')
+        ->assertHasFormErrors(['description' => 'max']);
 });

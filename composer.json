@@ -1,6 +1,8 @@
 {
     "name": "misaf/vendra-permission",
     "description": "Role and permission management for Vendra, built on top of Spatie Permission",
+    "license": "MIT",
+    "type": "vendra-module",
     "keywords": [
         "laravel",
         "filamentphp",
@@ -8,8 +10,6 @@
         "vendra",
         "permission"
     ],
-    "homepage": "https://github.com/misaf/vendra-permission",
-    "license": "MIT",
     "authors": [
         {
             "name": "Ehsan Mahmoodi",
@@ -17,7 +17,11 @@
             "role": "Developer"
         }
     ],
-    "type": "vendra-module",
+    "homepage": "https://github.com/misaf/vendra-permission",
+    "support": {
+        "issues": "https://github.com/misaf/vendra-permission/issues",
+        "source": "https://github.com/misaf/vendra-permission"
+    },
     "require": {
         "php": "^8.3",
         "awcodes/filament-badgeable-column": "^4.0",
@@ -47,6 +51,8 @@
         "pestphp/pest-plugin-type-coverage": "^4.0.4",
         "phpstan/extension-installer": "^1.4.3"
     },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
     "autoload": {
         "psr-4": {
             "Misaf\\VendraPermission\\": "src/",
@@ -58,6 +64,16 @@
             "Misaf\\VendraPermission\\Database\\Factories\\": "database/factories/",
             "Misaf\\VendraPermission\\Tests\\": "tests/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true,
+            "phpstan/extension-installer": true
+        },
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "extra": {
         "laravel": {
@@ -72,21 +88,5 @@
         "test": "vendor/bin/pest",
         "test-coverage": "vendor/bin/pest --coverage"
     },
-    "config": {
-        "allow-plugins": {
-            "pestphp/pest-plugin": true,
-            "php-http/discovery": true,
-            "phpstan/extension-installer": true
-        },
-        "optimize-autoloader": true,
-        "preferred-install": "dist",
-        "sort-packages": true
-    },
-    "support": {
-        "issues": "https://github.com/misaf/vendra-permission/issues",
-        "source": "https://github.com/misaf/vendra-permission"
-    },
-    "minimum-stability": "stable",
-    "prefer-stable": true,
     "$schema": "https://getcomposer.org/schema.json"
 }

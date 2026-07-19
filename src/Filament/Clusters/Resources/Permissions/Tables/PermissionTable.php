@@ -18,7 +18,6 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Enums\FiltersLayout;
 use Filament\Tables\Filters\QueryBuilder;
 use Filament\Tables\Filters\QueryBuilder\Constraints\TextConstraint;
-use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Config;
 use Laravel\Pennant\Feature;
@@ -63,7 +62,6 @@ final class PermissionTable
                 ->extraCellAttributes(['dir' => 'ltr'])
                 ->label(__('vendra-permission::table.columns.created_at'))
                 ->sinceTooltip()
-                ->toggleable(isToggledHiddenByDefault: true)
                 ->when(
                     app()->isLocale('fa'),
                     fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
@@ -76,7 +74,6 @@ final class PermissionTable
                 ->extraCellAttributes(['dir' => 'ltr'])
                 ->label(__('vendra-permission::table.columns.updated_at'))
                 ->sinceTooltip()
-                ->toggleable(isToggledHiddenByDefault: true)
                 ->when(
                     app()->isLocale('fa'),
                     fn(TextColumn $column) => $column->jalaliDateTime('Y-m-d H:i', latinNumbers: true),
@@ -120,10 +117,6 @@ final class PermissionTable
                     DeleteBulkAction::make(),
                 ]),
             ])
-            ->defaultGroup(
-                Group::make('guard_name')
-                    ->label(__('vendra-permission::table.groups.guard'))
-            )
             ->defaultSort(column: 'id', direction: 'desc');
     }
 

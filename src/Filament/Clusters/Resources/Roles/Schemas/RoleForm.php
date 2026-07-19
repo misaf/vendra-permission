@@ -9,7 +9,6 @@ use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Validation\Rules\Unique;
 use Livewire\Component as Livewire;
@@ -48,10 +47,7 @@ final class RoleForm
                     ->label(__('vendra-permission::attributes.guard_name'))
                     ->live()
                     ->native(false)
-                    ->options(Arr::mapWithKeys(
-                        array_keys(Config::array('auth.guards')),
-                        fn(string $guard): array => [$guard => $guard],
-                    ))
+                    ->options(static::guardOptions())
                     ->preload()
                     ->required()
                     ->searchable()
@@ -62,9 +58,25 @@ final class RoleForm
                     ->columnSpanFull()
                     ->label(__('vendra-permission::attributes.description'))
                     ->live(debounce: 500)
+                    ->maxLength(255)
                     ->nullable()
                     ->rows(5)
                     ->string(),
             ]);
+    }
+
+    /**
+     * @return array<string, string>
+     */
+    private static function guardOptions(): array
+    {
+        $options = [];
+
+        foreach (array_keys(Config::array('auth.guards')) as $guardName) {
+            $guardName = (string) $guardName;
+            $options[$guardName] = $guardName;
+        }
+
+        return $options;
     }
 }

@@ -19,6 +19,7 @@ use Misaf\VendraSupport\Contracts\TenantResolver;
 use Misaf\VendraSupport\Filament\Concerns\ResolvesConfiguredPanels;
 use Misaf\VendraSupport\Support\TenantAwareness;
 use Misaf\VendraSupport\Support\TenantSeeders;
+use Misaf\VendraSupport\Support\TenantTableRegistry;
 use Misaf\VendraUser\Models\User;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
@@ -59,6 +60,14 @@ final class PermissionServiceProvider extends PackageServiceProvider
 
     public function packageBooted(): void
     {
+        $tableNames = Config::array('permission.table_names');
+        $permissionsTable = $tableNames['permissions'] ?? null;
+        $rolesTable = $tableNames['roles'] ?? null;
+
+        $this->app->make(TenantTableRegistry::class)->register(
+            is_string($permissionsTable) ? $permissionsTable : 'permissions',
+            is_string($rolesTable) ? $rolesTable : 'roles',
+        );
         $this->app->make(TenantSeeders::class)->register('vendra-permission:seed', priority: 10);
 
         AboutCommand::add('Vendra Permission', fn() => ['Version' => InstalledVersions::getPrettyVersion('misaf/vendra-permission')]);

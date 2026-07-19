@@ -10,6 +10,8 @@ The `misaf/vendra-permission` package owns role and permission management built 
 - Every field listed in a model's `$translatable` array must definitely use a JSON database column. Keep its model traits/casts, factories, validation, Filament locale UI, API serialization, and tests translation-aware.
 - A field not listed in `$translatable` must use the appropriate scalar database type and must not use Spatie Translatable, translatable slug traits, locale switchers, translated callbacks, or translation-shaped array data.
 
+- Register every table whose migration calls `TenantSchema::addTenantColumn()` with `TenantTableRegistry` in this package's service provider, preserving configured table names and connections, so `vendra-tenant:enable {tenant}` can retrofit schemas migrated before tenancy was enabled.
+
 - Keep permission domain code inside `packages/vendra-permission` using the `Misaf\VendraPermission` namespace.
 - Use this package for models, migrations, factories, seeders, policies, permission enums, observers, Filament resources, translations, config, and package bootstrapping.
 - `Permission` and `Role` extend Spatie Permission models; the package's single final create migration conditionally includes `tenant_id` through `TenantSchema` and includes Vendra descriptions. Do not publish Spatie's base migration separately. Pennant features are scoped through the resolver's model class, never a concrete `Tenant`.

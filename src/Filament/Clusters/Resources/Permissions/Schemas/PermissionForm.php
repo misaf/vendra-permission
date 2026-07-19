@@ -101,6 +101,7 @@ final class PermissionForm
                     ->columnSpanFull()
                     ->label(__('vendra-permission::attributes.description'))
                     ->live()
+                    ->maxLength(255)
                     ->rows(5)
                     ->string(),
             ]);
