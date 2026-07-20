@@ -44,7 +44,6 @@ final class RoleTable
 
             BadgeableColumn::make('name')
                 ->alignStart()
-                ->description(fn(Role $record): ?string => $record->description)
                 ->label(__('vendra-permission::table.columns.name'))
                 ->searchable()
                 ->suffixBadges([
@@ -53,6 +52,10 @@ final class RoleTable
                         ->size(Size::Small),
                 ])
                 ->suffix(''),
+
+            TextColumn::make('description')
+                ->label(__('vendra-permission::table.columns.description'))
+                ->toggleable(isToggledHiddenByDefault: true),
 
             TextColumn::make('created_at')
                 ->alignCenter()

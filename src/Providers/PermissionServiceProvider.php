@@ -70,7 +70,7 @@ final class PermissionServiceProvider extends PackageServiceProvider
         );
         $this->app->make(TenantSeeders::class)->register('vendra-permission:seed', priority: 10);
 
-        AboutCommand::add('Vendra Permission', fn() => ['Version' => InstalledVersions::getPrettyVersion('misaf/vendra-permission')]);
+        AboutCommand::add('Vendra Permission', fn(): array => ['Version' => InstalledVersions::getPrettyVersion('misaf/vendra-permission')]);
 
         Gate::after(function (User $user): ?true {
             return $user->hasRole(Config::string('vendra-permission.super_admin_role', 'superadmin')) ? true : null;

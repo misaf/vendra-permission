@@ -97,9 +97,10 @@ describe('table columns', function () use (&$tenant): void {
             ->loadTable()
             ->assertCanRenderTableColumn($column);
     })->with([
-        'row column'     => 'row',
-        'roles relation' => 'roles.name',
-        'name column'    => 'name',
+        'row column'         => 'row',
+        'roles relation'     => 'roles.name',
+        'name column'        => 'name',
+        'description column' => 'description',
     ]);
 
     it('hides columns by default', function (string $column) use (&$tenant): void {
@@ -113,8 +114,9 @@ describe('table columns', function () use (&$tenant): void {
             ->loadTable()
             ->assertCanNotRenderTableColumn($column);
     })->with([
-        'created at column' => 'created_at',
-        'updated at column' => 'updated_at',
+        'created at column'  => 'created_at',
+        'updated at column'  => 'updated_at',
+        'description column' => 'description',
     ]);
 });
 
@@ -332,8 +334,8 @@ describe('column existence', function () use (&$tenant): void {
 
         livewire(ListPermissions::class)
             ->loadTable()
-            ->assertTableColumnExists('name', function (TextColumn $column) use ($permission): bool {
-                return $column->getDescriptionBelow() === $permission->description;
+            ->assertTableColumnExists('name', function (TextColumn $column): bool {
+                return null === $column->getDescriptionBelow();
             }, $permission);
     });
 
@@ -342,10 +344,11 @@ describe('column existence', function () use (&$tenant): void {
             ->loadTable()
             ->assertTableColumnExists($column);
     })->with([
-        'row column'        => 'row',
-        'roles relation'    => 'roles.name',
-        'created at column' => 'created_at',
-        'updated at column' => 'updated_at',
+        'row column'         => 'row',
+        'roles relation'     => 'roles.name',
+        'description column' => 'description',
+        'created at column'  => 'created_at',
+        'updated at column'  => 'updated_at',
     ]);
 });
 
@@ -364,7 +367,7 @@ describe('column visibility', function (): void {
 });
 
 describe('column descriptions', function () use (&$tenant): void {
-    it('shows name description below', function () use (&$tenant): void {
+    it('sets description column state', function () use (&$tenant): void {
         assert($tenant instanceof Model);
 
         $permission = Permission::factory()
@@ -374,10 +377,10 @@ describe('column descriptions', function () use (&$tenant): void {
 
         livewire(ListPermissions::class)
             ->loadTable()
-            ->assertTableColumnHasDescription('name', $permission->description, $permission, 'below');
+            ->assertTableColumnStateSet('description', $permission->description, $permission);
     });
 
-    it('hides description below for non-description columns', function (string $column) use (&$tenant): void {
+    it('hides description below for all columns', function (string $column) use (&$tenant): void {
         assert($tenant instanceof Model);
 
         $permission = Permission::factory()
@@ -389,13 +392,15 @@ describe('column descriptions', function () use (&$tenant): void {
             ->loadTable()
             ->assertTableColumnDoesNotHaveDescription($column, $permission->description, $permission, 'below');
     })->with([
-        'row column'        => 'row',
-        'roles relation'    => 'roles.name',
-        'created at column' => 'created_at',
-        'updated at column' => 'updated_at',
+        'row column'         => 'row',
+        'roles relation'     => 'roles.name',
+        'name column'        => 'name',
+        'description column' => 'description',
+        'created at column'  => 'created_at',
+        'updated at column'  => 'updated_at',
     ]);
 
-    it('hides description above for all configured columns', function (string $column) use (&$tenant): void {
+    it('hides description above for all columns', function (string $column) use (&$tenant): void {
         assert($tenant instanceof Model);
 
         $permission = Permission::factory()
@@ -407,11 +412,12 @@ describe('column descriptions', function () use (&$tenant): void {
             ->loadTable()
             ->assertTableColumnDoesNotHaveDescription($column, $permission->description, $permission, 'above');
     })->with([
-        'row column'        => 'row',
-        'roles relation'    => 'roles.name',
-        'name column'       => 'name',
-        'created at column' => 'created_at',
-        'updated at column' => 'updated_at',
+        'row column'         => 'row',
+        'roles relation'     => 'roles.name',
+        'name column'        => 'name',
+        'description column' => 'description',
+        'created at column'  => 'created_at',
+        'updated at column'  => 'updated_at',
     ]);
 });
 
@@ -428,8 +434,9 @@ describe('toggleable columns', function () use (&$tenant): void {
             ->toggleAllTableColumns()
             ->assertCanRenderTableColumn($column);
     })->with([
-        'created at column' => 'created_at',
-        'updated at column' => 'updated_at',
+        'description column' => 'description',
+        'created at column'  => 'created_at',
+        'updated at column'  => 'updated_at',
     ]);
 
     it('keeps hidden columns hidden after toggle off', function (string $column) use (&$tenant): void {
@@ -444,7 +451,8 @@ describe('toggleable columns', function () use (&$tenant): void {
             ->toggleAllTableColumns(false)
             ->assertCanNotRenderTableColumn($column);
     })->with([
-        'created at column' => 'created_at',
-        'updated at column' => 'updated_at',
+        'description column' => 'description',
+        'created at column'  => 'created_at',
+        'updated at column'  => 'updated_at',
     ]);
 });

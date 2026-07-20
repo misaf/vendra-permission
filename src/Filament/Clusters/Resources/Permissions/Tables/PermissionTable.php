@@ -24,7 +24,6 @@ use Laravel\Pennant\Feature;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Permissions\DeleteBulkAction;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Roles\SyncBulkAction;
-use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraSupport\Contracts\TenantResolver;
 
 final class PermissionTable
@@ -51,10 +50,13 @@ final class PermissionTable
 
             TextColumn::make('name')
                 ->alignStart()
-                ->description(fn(Permission $record): ?string => $record->description)
                 ->label(__('vendra-permission::table.columns.name'))
                 ->searchable()
                 ->sortable(),
+
+            TextColumn::make('description')
+                ->label(__('vendra-permission::table.columns.description'))
+                ->toggleable(isToggledHiddenByDefault: true),
 
             TextColumn::make('created_at')
                 ->alignCenter()
