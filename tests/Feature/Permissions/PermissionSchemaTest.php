@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
+use Illuminate\Database\Eloquent\Model;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\CreatePermission;
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraPermission\Tests\Support\PermissionModuleTestContext;
-use Misaf\VendraTenant\Models\Tenant;
 
 use function Pest\Livewire\livewire;
 
@@ -17,7 +17,7 @@ beforeEach(function () use (&$tenant): void {
 
 describe('Filling a form in a test', function () use (&$tenant): void {
     it('#1', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -46,7 +46,7 @@ describe('Filling a form in a test', function () use (&$tenant): void {
 
 describe('Testing form validation', function () use (&$tenant): void {
     it('#2', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -68,7 +68,7 @@ describe('Testing form validation', function () use (&$tenant): void {
     ]);
 
     it('#3', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)

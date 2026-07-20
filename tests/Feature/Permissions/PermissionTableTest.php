@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Factories\Sequence;
+use Illuminate\Database\Eloquent\Model;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Pages\ListPermissions;
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraPermission\Models\Role;
 use Misaf\VendraPermission\Tests\Support\PermissionModuleTestContext;
-use Misaf\VendraTenant\Models\Tenant;
 use Morilog\Jalali\Jalalian;
 
 use function Pest\Livewire\livewire;
@@ -27,7 +27,7 @@ describe('table rendering', function () use (&$tenant): void {
     });
 
     it('lists records', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permissions = Permission::factory()
             ->count(2)
@@ -40,7 +40,7 @@ describe('table rendering', function () use (&$tenant): void {
     });
 
     it('counts records', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permissions = Permission::factory()
             ->count(2)
@@ -53,7 +53,7 @@ describe('table rendering', function () use (&$tenant): void {
     });
 
     it('paginates records', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $firstGroupPermissions = Permission::factory()
             ->count(10)
@@ -87,7 +87,7 @@ describe('table rendering', function () use (&$tenant): void {
 
 describe('table columns', function () use (&$tenant): void {
     it('renders columns', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         Permission::factory()
             ->forTenant($tenant)
@@ -103,7 +103,7 @@ describe('table columns', function () use (&$tenant): void {
     ]);
 
     it('hides columns by default', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         Permission::factory()
             ->forTenant($tenant)
@@ -120,7 +120,7 @@ describe('table columns', function () use (&$tenant): void {
 
 describe('table search', function () use (&$tenant): void {
     it('searches records', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $firstPermission = Permission::factory()
             ->forTenant($tenant)
@@ -142,7 +142,7 @@ describe('table search', function () use (&$tenant): void {
     });
 
     it('shows no records for unmatched search', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -158,7 +158,7 @@ describe('table search', function () use (&$tenant): void {
 
 describe('table sorting', function () use (&$tenant): void {
     it('sorts records', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $sortPrefix = uniqid('permission-sort-', true);
 
@@ -194,7 +194,7 @@ describe('table sorting', function () use (&$tenant): void {
 
 describe('column states', function () use (&$tenant): void {
     it('sets row index state', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -207,7 +207,7 @@ describe('column states', function () use (&$tenant): void {
     });
 
     it('sets roles relation state', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $role = Role::factory()
             ->forTenant($tenant)
@@ -227,7 +227,7 @@ describe('column states', function () use (&$tenant): void {
     });
 
     it('sets raw column state', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -244,7 +244,7 @@ describe('column states', function () use (&$tenant): void {
     ]);
 
     it('formats row index state', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -257,7 +257,7 @@ describe('column states', function () use (&$tenant): void {
     });
 
     it('formats roles relation state', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $role = Role::factory()
             ->forTenant($tenant)
@@ -288,7 +288,7 @@ describe('column states', function () use (&$tenant): void {
     });
 
     it('formats name column state', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -301,7 +301,7 @@ describe('column states', function () use (&$tenant): void {
     });
 
     it('formats timestamp column state', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -323,7 +323,7 @@ describe('column states', function () use (&$tenant): void {
 
 describe('column existence', function () use (&$tenant): void {
     it('resolves name description below', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -365,7 +365,7 @@ describe('column visibility', function (): void {
 
 describe('column descriptions', function () use (&$tenant): void {
     it('shows name description below', function () use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -378,7 +378,7 @@ describe('column descriptions', function () use (&$tenant): void {
     });
 
     it('hides description below for non-description columns', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -396,7 +396,7 @@ describe('column descriptions', function () use (&$tenant): void {
     ]);
 
     it('hides description above for all configured columns', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         $permission = Permission::factory()
             ->forTenant($tenant)
@@ -417,7 +417,7 @@ describe('column descriptions', function () use (&$tenant): void {
 
 describe('toggleable columns', function () use (&$tenant): void {
     it('shows hidden columns after toggle', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         Permission::factory()
             ->forTenant($tenant)
@@ -433,7 +433,7 @@ describe('toggleable columns', function () use (&$tenant): void {
     ]);
 
     it('keeps hidden columns hidden after toggle off', function (string $column) use (&$tenant): void {
-        assert($tenant instanceof Tenant);
+        assert($tenant instanceof Model);
 
         Permission::factory()
             ->forTenant($tenant)
