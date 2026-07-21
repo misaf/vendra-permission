@@ -102,6 +102,10 @@ final class PermissionTable
                 ],
                 layout: FiltersLayout::AboveContentCollapsible,
             )
+            ->description(__('vendra-permission::tables.description.permissions'))
+            ->emptyStateHeading(__('vendra-permission::tables.empty_state.heading.permissions'))
+            ->emptyStateDescription(__('vendra-permission::tables.empty_state.description.permissions'))
+            ->emptyStateIcon(Heroicon::OutlinedKey)
             ->recordActions([
                 ActionGroup::make([
                     ViewAction::make(),

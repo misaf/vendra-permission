@@ -11,7 +11,6 @@ enum PermissionPolicyEnum: string
     case DeleteAny = 'delete-any-permission';
     case ForceDelete = 'force-delete-permission';
     case ForceDeleteAny = 'force-delete-any-permission';
-    case Replicate = 'replicate-permission';
     case Restore = 'restore-permission';
     case RestoreAny = 'restore-any-permission';
     case Update = 'update-permission';

@@ -14,6 +14,7 @@ use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\QueryBuilder\Constraints\SelectConstraint;
 use Filament\Support\Enums\Size;
+use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\Column;
 use Filament\Tables\Columns\ColumnGroup;
 use Filament\Tables\Columns\Layout\Component as LayoutComponent;
@@ -100,6 +101,10 @@ final class RoleTable
                 ],
                 layout: FiltersLayout::AboveContentCollapsible,
             )
+            ->description(__('vendra-permission::tables.description.roles'))
+            ->emptyStateHeading(__('vendra-permission::tables.empty_state.heading.roles'))
+            ->emptyStateDescription(__('vendra-permission::tables.empty_state.description.roles'))
+            ->emptyStateIcon(Heroicon::OutlinedShieldCheck)
             ->recordActions([
                 ActionGroup::make([
                     ViewAction::make(),

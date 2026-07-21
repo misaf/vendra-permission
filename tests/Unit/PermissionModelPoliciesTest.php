@@ -21,13 +21,13 @@ it('hides the tenant association from permission serialization', function (): vo
 it('defines policy permissions for the permission resource', function (): void {
     $permissions = array_column(PermissionPolicyEnum::cases(), 'value');
 
-    expect($permissions)->toHaveCount(11);
+    expect($permissions)->toHaveCount(10);
 });
 
 it('defines policy permissions for the role resource', function (): void {
     $permissions = array_column(RolePolicyEnum::cases(), 'value');
 
-    expect($permissions)->toHaveCount(11);
+    expect($permissions)->toHaveCount(10);
 });
 
 it('uses kebab-case permission names scoped per model', function (): void {
