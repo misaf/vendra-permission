@@ -10,23 +10,22 @@ Role and permission management for Vendra applications.
 - Tenant-scoped Pennant feature flags for module/resource access
 - Feature toggle Artisan command per tenant
 - Policy classes and enums for role/permission actions
-- Translation files for `en` and `fa`
+- Translation files for `en`, `de`, and `fa`
 - Configurable `Gate::after()` superadmin bypass role
 
 ## Requirements
 
-- PHP 8.2+
-- Laravel 12
+- PHP 8.3+
+- Laravel 13
 - Filament 5
 - Livewire 4
 - Pest 4
 - Tailwind CSS 4
 - `laravel/pennant`
-- `misaf/vendra-tenant`
+- `misaf/vendra-support`
 - `misaf/vendra-user`
-- `misaf/vendra-activity-log`
 - `awcodes/filament-badgeable-column`
-- `mokhosh/filament-jalali`
+- `misaf/filament-jalali`
 - `spatie/laravel-permission`
 
 ## Installation
@@ -35,11 +34,12 @@ Role and permission management for Vendra applications.
 composer require misaf/vendra-permission
 ```
 
-Publish Spatie permission config and migrations (if not already published in your app):
+Publish Spatie Permission's configuration if it is not already present, then
+publish Vendra's tenant-aware permission migration:
 
 ```bash
 php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag=permission-config
-php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider" --tag=permission-migrations
+php artisan vendor:publish --tag=vendra-permission-migrations
 php artisan migrate
 ```
 
@@ -71,7 +71,7 @@ If you want Spatie to use this module's models everywhere in your app, set `conf
 Superadmin bypass role is configurable in `config/vendra-permission.php`:
 
 ```php
-'super_admin_role' => env('VENDRA_PERMISSION_SUPER_ADMIN_ROLE', 'superadmin'),
+'super_admin_role' => env('VENDRA_PERMISSION_SUPER_ADMIN_ROLE', 'super-admin'),
 ```
 
 The config key is `super_admin_role` (short and local to this file).
@@ -110,7 +110,8 @@ Resources are registered on the `admin` panel through `PermissionPlugin`:
 
 Navigation cluster: `permissions`
 
-Access is feature-gated per tenant using `Feature::for(Tenant::current())`:
+Access is feature-gated against the current scope returned by the shared
+`TenantResolver`:
 
 - `vendra-permission.module-enabled` controls cluster access
 - `vendra-permission.role-management` controls role resource access
@@ -223,18 +224,6 @@ See: https://spatie.be/docs/laravel-permission
 composer analyse
 composer format
 ```
-
-## Keeping This README Updated
-
-Update this file whenever these change:
-
-- `composer.json` requirements
-- Pennant feature keys, defaults, or resolver behavior
-- feature command signature or behavior
-- Filament resources, pages, or cluster names
-- Translation keys/files in `resources/lang`
-- Authorization behavior in policies or `PermissionServiceProvider`
-- Installation steps (especially migration/config behavior)
 
 ## Testing
 
