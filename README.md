@@ -218,17 +218,12 @@ Use this package's tenant feature flags and console command to control access in
 Role/permission CRUD and assignment semantics follow Spatie Permission.
 See: https://spatie.be/docs/laravel-permission
 
-## Development
-
-```bash
-composer analyse
-composer format
-```
-
 ## Testing
 
 ```bash
 composer test
+composer analyse
+composer format
 ```
 
 ## License
