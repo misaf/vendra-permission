@@ -51,11 +51,13 @@ final class PermissionTable
             TextColumn::make('name')
                 ->alignStart()
                 ->label(__('vendra-permission::table.columns.name'))
+                ->icon(Heroicon::Tag)
                 ->searchable()
                 ->sortable(),
 
             TextColumn::make('description')
                 ->label(__('vendra-permission::table.columns.description'))
+                ->icon(Heroicon::DocumentText)
                 ->toggleable(isToggledHiddenByDefault: true),
 
             TextColumn::make('created_at')

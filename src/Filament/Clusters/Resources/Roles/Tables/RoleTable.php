@@ -46,6 +46,7 @@ final class RoleTable
             BadgeableColumn::make('name')
                 ->alignStart()
                 ->label(__('vendra-permission::table.columns.name'))
+                ->icon(Heroicon::Tag)
                 ->searchable()
                 ->suffixBadges([
                     Badge::make('count')
@@ -56,6 +57,7 @@ final class RoleTable
 
             TextColumn::make('description')
                 ->label(__('vendra-permission::table.columns.description'))
+                ->icon(Heroicon::DocumentText)
                 ->toggleable(isToggledHiddenByDefault: true),
 
             TextColumn::make('created_at')
