@@ -10,7 +10,7 @@ return [
         'role'       => 'نقش ها',
         'updated_at' => 'تاریخ بروزرسانی',
     ],
-    'groups' => [
-        'guard' => 'گارد',
+    'groups'  => [
+        'guard'      => 'گارد',
     ],
 ];

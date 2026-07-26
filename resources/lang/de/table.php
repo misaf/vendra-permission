@@ -10,7 +10,7 @@ return [
         'role'       => 'Rollen',
         'updated_at' => 'Aktualisiert am',
     ],
-    'groups' => [
-        'guard' => 'Guard',
+    'groups'  => [
+        'guard'      => 'Guard',
     ],
 ];

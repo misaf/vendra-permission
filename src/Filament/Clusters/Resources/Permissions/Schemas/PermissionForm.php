@@ -79,6 +79,7 @@ final class PermissionForm
                 Select::make('guard_name')
                     ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.guard_name'))
                     ->columnSpan(['lg' => 1])
+                    ->helperText(__('vendra-permission::attributes.guard_name_helper_text'))
                     ->hiddenOn(PermissionRelationManager::class)
                     ->label(__('vendra-permission::attributes.guard_name'))
                     ->live()

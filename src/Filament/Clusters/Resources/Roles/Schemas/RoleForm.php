@@ -44,6 +44,7 @@ final class RoleForm
                 Select::make('guard_name')
                     ->afterStateUpdated(fn(Livewire $livewire) => $livewire->validateOnly('data.guard_name'))
                     ->columnSpan(['lg' => 1])
+                    ->helperText(__('vendra-permission::attributes.guard_name_helper_text'))
                     ->label(__('vendra-permission::attributes.guard_name'))
                     ->live()
                     ->native(false)
