@@ -32,6 +32,8 @@ final class PermissionResource extends Resource
 
     protected static ?int $navigationSort = NavigationPriority::Permissions->value;
 
+    protected static ?string $recordTitleAttribute = 'name';
+
     protected static ?string $slug = 'permissions';
 
     protected static ?string $cluster = CustomersCluster::class;
@@ -54,6 +56,14 @@ final class PermissionResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('vendra-permission::navigation.permissions');
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'guard_name'];
     }
 
     public static function getPages(): array

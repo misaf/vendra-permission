@@ -33,6 +33,8 @@ final class RoleResource extends Resource
 
     protected static ?int $navigationSort = NavigationPriority::Roles->value;
 
+    protected static ?string $recordTitleAttribute = 'name';
+
     protected static ?string $slug = 'roles';
 
     protected static ?string $cluster = CustomersCluster::class;
@@ -55,6 +57,14 @@ final class RoleResource extends Resource
     public static function getPluralModelLabel(): string
     {
         return __('vendra-permission::navigation.roles');
+    }
+
+    /**
+     * @return array<int, string>
+     */
+    public static function getGloballySearchableAttributes(): array
+    {
+        return ['name', 'guard_name'];
     }
 
     public static function getRelations(): array

@@ -61,8 +61,6 @@ final class RoleTable
                 ->toggleable(isToggledHiddenByDefault: true),
 
             TextColumn::make('created_at')
-                ->alignCenter()
-                ->badge()
                 ->extraCellAttributes(['dir' => 'ltr'])
                 ->label(__('vendra-permission::table.columns.created_at'))
                 ->sinceTooltip()
@@ -73,8 +71,6 @@ final class RoleTable
                 ),
 
             TextColumn::make('updated_at')
-                ->alignCenter()
-                ->badge()
                 ->extraCellAttributes(['dir' => 'ltr'])
                 ->label(__('vendra-permission::table.columns.updated_at'))
                 ->sinceTooltip()
