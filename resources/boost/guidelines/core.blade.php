@@ -2,8 +2,6 @@
 
 The `misaf/vendra-permission` package owns role and permission management built on top of Spatie Permission and the Filament admin UI for permissions and roles.
 
-### Standards
-
 ### Translatable Persistence
 
 - Making a persisted model field translatable is an explicit domain choice unless this package already requires it.
