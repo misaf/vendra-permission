@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace Misaf\VendraPermission\Tests\Support;
 
-use Filament\Facades\Filament;
-use Filament\Panel;
-use Filament\PanelRegistry;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Config;
 use Laravel\Pennant\Feature;
-use Livewire\Livewire;
 use Misaf\VendraPermission\Enums\PermissionFeatureEnum;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\PermissionResource;
 use Misaf\VendraPermission\Filament\Clusters\Resources\Roles\RoleResource;
@@ -66,30 +61,10 @@ final class PermissionModuleTestContext
 
         $user->assignRole($superAdminRole);
 
-        app(PanelRegistry::class)->register(
-            Panel::make()
-                ->default()
-                ->id('admin')
-                ->path('admin')
-                ->resources([
-                    PermissionResource::class,
-                    RoleResource::class,
-                ])
-                ->tenant(testTenantModel())
-        );
-
-        Table::configureUsing(function (Table $table) {
-            return $table
-                ->paginationPageOptions([10, 25, 50])
-                ->deferLoading();
-        });
-
-        Filament::setCurrentPanel('admin');
-        Livewire::actingAs($user);
-        Filament::setTenant($tenant);
-        Filament::bootCurrentPanel();
-
-        app('url')->resolveMissingNamedRoutesUsing(static fn(): string => '/');
+        bootFilamentAdminPanel($user, $tenant, [
+            PermissionResource::class,
+            RoleResource::class,
+        ]);
 
         return $tenant;
     }
