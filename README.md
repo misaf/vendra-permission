@@ -4,7 +4,7 @@ Role and permission management for Vendra applications.
 
 ## Features
 
-- Filament cluster on the `admin` panel for permission management
+- Role and permission resources in the shared `Customers` cluster
 - Role and permission CRUD resources
 - Manage role-permission relations from role pages
 - Tenant-scoped Pennant feature flags for module/resource access
@@ -83,7 +83,6 @@ Pennant feature behavior is configured in `config/vendra-permission.php`:
 ```php
 'features' => [
     'enabled' => env('VENDRA_PERMISSION_FEATURES_ENABLED', false),
-    'discover' => env('VENDRA_PERMISSION_FEATURES_DISCOVER', false),
     'defaults' => [
         'vendra-permission.module-enabled' => false,
         'vendra-permission.role-management' => false,
@@ -93,14 +92,6 @@ Pennant feature behavior is configured in `config/vendra-permission.php`:
 ],
 ```
 
-When `features.discover` is enabled, the package calls:
-
-```php
-Feature::discover('Misaf\\VendraPermission\\Features', __DIR__ . '/Features');
-```
-
-if the directory exists.
-
 ## Filament
 
 Resources are registered on the `admin` panel through `PermissionPlugin`:
@@ -108,53 +99,29 @@ Resources are registered on the `admin` panel through `PermissionPlugin`:
 - Roles
 - Permissions
 
-Navigation cluster: `permissions`
+Both resources live in the shared `Customers` cluster.
 
 Access is feature-gated against the current scope returned by the shared
 `TenantResolver`:
 
-- `vendra-permission.module-enabled` controls cluster access
+- `vendra-permission.module-enabled` controls both resources
 - `vendra-permission.role-management` controls role resource access
 - `vendra-permission.permission-management` controls permission resource access
 - `vendra-permission.bulk-role-assignment` controls attach/detach role bulk actions
 
-### Permission Bulk Actions
-
-`AttachRolesAction` and `DetachRolesAction` share role-resolution logic via:
-
-- `Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Actions\Concerns\ResolvesSelectedRoles`
-
-The trait provides:
-
-- `getRoleSelectOptions()` for the roles multiselect options (`name (guard_name)`)
-- `resolveRoleIdsByGuardFromPayload()` to load selected roles with `whereKey(...)` and group by `guard_name`
-
-This keeps attach/detach behavior consistent and prevents cross-guard role operations when processing selected `Permission` records.
-
 ## Pennant Features
 
-Feature keys are defined in:
-
-- `Misaf\VendraPermission\Enums\PermissionFeatureEnum`
-
-Resolver registration lives in:
-
-- `Misaf\VendraPermission\Providers\PermissionServiceProvider::packageBooted()`
-
-Resolver behavior:
-
-- non-tenant scopes are denied (`false`)
-- `features.enabled` must be true
-- unresolved values fall back to `features.defaults`
+Feature resolution must be enabled. Tenant-aware applications reject
+non-tenant scopes; unresolved feature values use `features.defaults`.
 
 Feature map:
 
 | Enum case | Feature key | Short key | Effect |
 | --- | --- | --- | --- |
-| `MODULE_ENABLED` | `vendra-permission.module-enabled` | `module-enabled` | Enables or hides the whole permissions cluster |
-| `ROLE_MANAGEMENT` | `vendra-permission.role-management` | `role-management` | Enables or hides the roles resource |
-| `PERMISSION_MANAGEMENT` | `vendra-permission.permission-management` | `permission-management` | Enables or hides the permissions resource |
-| `BULK_ROLE_ASSIGNMENT` | `vendra-permission.bulk-role-assignment` | `bulk-role-assignment` | Enables or hides attach/detach role bulk actions |
+| `ModuleEnabled` | `vendra-permission.module-enabled` | `module-enabled` | Enables or hides both permission resources |
+| `RoleManagement` | `vendra-permission.role-management` | `role-management` | Enables or hides the roles resource |
+| `PermissionManagement` | `vendra-permission.permission-management` | `permission-management` | Enables or hides the permissions resource |
+| `BulkRoleAssignment` | `vendra-permission.bulk-role-assignment` | `bulk-role-assignment` | Enables or hides attach/detach role bulk actions |
 
 ## Artisan Commands
 
@@ -166,7 +133,7 @@ php artisan vendra-permission:feature {activate|deactivate} {feature|all} {tenan
 
 `feature` accepts:
 
-- enum case name, e.g. `ROLE_MANAGEMENT`
+- enum case name, e.g. `RoleManagement`
 - full key, e.g. `vendra-permission.role-management`
 - short key, e.g. `role-management`
 - `all`
@@ -186,24 +153,10 @@ php artisan vendra-permission:feature activate permission-management acme
 php artisan vendra-permission:feature deactivate all acme
 ```
 
-Per-feature console reference (`<tenant>` can be tenant `id` or `slug`):
+Seed permissions and demo data for a tenant with:
 
 ```bash
-# MODULE_ENABLED
-php artisan vendra-permission:feature activate MODULE_ENABLED <tenant>
-php artisan vendra-permission:feature deactivate MODULE_ENABLED <tenant>
-
-# ROLE_MANAGEMENT
-php artisan vendra-permission:feature activate ROLE_MANAGEMENT <tenant>
-php artisan vendra-permission:feature deactivate ROLE_MANAGEMENT <tenant>
-
-# PERMISSION_MANAGEMENT
-php artisan vendra-permission:feature activate PERMISSION_MANAGEMENT <tenant>
-php artisan vendra-permission:feature deactivate PERMISSION_MANAGEMENT <tenant>
-
-# BULK_ROLE_ASSIGNMENT
-php artisan vendra-permission:feature activate BULK_ROLE_ASSIGNMENT <tenant>
-php artisan vendra-permission:feature deactivate BULK_ROLE_ASSIGNMENT <tenant>
+php artisan vendra-permission:seed {tenant}
 ```
 
 ## Usage

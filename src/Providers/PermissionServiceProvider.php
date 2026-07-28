@@ -76,18 +76,7 @@ final class PermissionServiceProvider extends PackageServiceProvider
             return $user->hasRole(Config::string('vendra-permission.super_admin_role', 'superadmin')) ? true : null;
         });
 
-        $this->discoverPackageFeatures();
         $this->registerTenantFeatures();
-    }
-
-    private function discoverPackageFeatures(): void
-    {
-        $featureNamespace = 'Misaf\\VendraPermission\\Features';
-        $featurePath = __DIR__ . '/Features';
-
-        if (Config::boolean('vendra-permission.features.discover', false) && is_dir($featurePath)) {
-            Feature::discover($featureNamespace, $featurePath);
-        }
     }
 
     private function registerTenantFeatures(): void

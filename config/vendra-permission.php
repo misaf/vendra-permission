@@ -28,8 +28,6 @@ return [
     'features' => [
         'enabled' => env('VENDRA_PERMISSION_FEATURES_ENABLED', false),
 
-        'discover' => env('VENDRA_PERMISSION_FEATURES_DISCOVER', false),
-
         'defaults' => [
             'vendra-permission.module-enabled'        => false,
             'vendra-permission.role-management'       => false,
