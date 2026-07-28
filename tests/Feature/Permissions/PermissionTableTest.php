@@ -100,7 +100,6 @@ describe('table columns', function () use (&$tenant): void {
         'row column'         => 'row',
         'roles relation'     => 'roles.name',
         'name column'        => 'name',
-        'description column' => 'description',
     ]);
 
     it('hides columns by default', function (string $column) use (&$tenant): void {
@@ -114,8 +113,6 @@ describe('table columns', function () use (&$tenant): void {
             ->loadTable()
             ->assertCanNotRenderTableColumn($column);
     })->with([
-        'created at column'  => 'created_at',
-        'updated at column'  => 'updated_at',
         'description column' => 'description',
     ]);
 });
@@ -435,8 +432,6 @@ describe('toggleable columns', function () use (&$tenant): void {
             ->assertCanRenderTableColumn($column);
     })->with([
         'description column' => 'description',
-        'created at column'  => 'created_at',
-        'updated at column'  => 'updated_at',
     ]);
 
     it('keeps hidden columns hidden after toggle off', function (string $column) use (&$tenant): void {
@@ -452,7 +447,5 @@ describe('toggleable columns', function () use (&$tenant): void {
             ->assertCanNotRenderTableColumn($column);
     })->with([
         'description column' => 'description',
-        'created at column'  => 'created_at',
-        'updated at column'  => 'updated_at',
     ]);
 });
