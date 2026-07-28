@@ -6,7 +6,7 @@ use Misaf\VendraPermission\Enums\PermissionPolicyEnum;
 use Misaf\VendraPermission\Enums\RolePolicyEnum;
 use Misaf\VendraPermission\Models\Permission;
 use Misaf\VendraPermission\Models\Role;
-use Misaf\VendraSupport\Traits\BelongsToTenant;
+use Misaf\VendraSupport\Tenancy\BelongsToTenant;
 
 it('applies shared tenant ownership to permission models', function (): void {
     expect(class_uses_recursive(Permission::class))->toContain(BelongsToTenant::class)

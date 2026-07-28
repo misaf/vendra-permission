@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Validator;
 use Misaf\VendraPermission\Actions\CreateRoleAction;
 use Misaf\VendraPermission\Database\Factories\RoleFactory;
-use Misaf\VendraSupport\Concerns\RequiresCurrentTenant;
-use Misaf\VendraSupport\Database\Seeders\DemoContentSeeder as BaseDemoContentSeeder;
+use Misaf\VendraSupport\Tenancy\Database\Seeders\DemoContentSeeder as BaseDemoContentSeeder;
+use Misaf\VendraSupport\Tenancy\RequiresCurrentTenant;
 
 final class DemoContentSeeder extends BaseDemoContentSeeder
 {

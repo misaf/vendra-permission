@@ -7,7 +7,7 @@ namespace Misaf\VendraPermission\Filament\Clusters\Resources\Permissions\Schemas
 use Filament\Forms\Components\Select;
 use Illuminate\Validation\Rule;
 use Misaf\VendraPermission\Models\Role;
-use Misaf\VendraSupport\Support\TenantAwareness;
+use Misaf\VendraSupport\Tenancy\TenantAwareness;
 
 final class RolesSelect
 {

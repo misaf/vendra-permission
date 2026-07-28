@@ -7,7 +7,7 @@ namespace Misaf\VendraPermission\Console\Commands;
 use Misaf\VendraPermission\Database\Seeders\DemoContentSeeder;
 use Misaf\VendraPermission\Database\Seeders\PermissionPolicySeeder;
 use Misaf\VendraPermission\PermissionPlugin;
-use Misaf\VendraSupport\Console\Commands\TenantSeedCommand;
+use Misaf\VendraSupport\Tenancy\Console\Commands\TenantSeedCommand;
 
 final class SeedCommand extends TenantSeedCommand
 {
