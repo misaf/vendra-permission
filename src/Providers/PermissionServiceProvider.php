@@ -7,6 +7,7 @@ namespace Misaf\VendraPermission\Providers;
 use Composer\InstalledVersions;
 
 use Filament\Panel;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Console\AboutCommand;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Gate;
@@ -20,7 +21,6 @@ use Misaf\VendraSupport\Filament\Concerns\ResolvesConfiguredPanels;
 use Misaf\VendraSupport\Tenancy\TenantAwareness;
 use Misaf\VendraSupport\Tenancy\TenantSeeders;
 use Misaf\VendraSupport\Tenancy\TenantTableRegistry;
-use Misaf\VendraUser\Models\User;
 use Spatie\LaravelPackageTools\Commands\InstallCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
@@ -72,8 +72,12 @@ final class PermissionServiceProvider extends PackageServiceProvider
 
         AboutCommand::add('Vendra Permission', fn(): array => ['Version' => InstalledVersions::getPrettyVersion('misaf/vendra-permission')]);
 
-        Gate::after(function (User $user): ?true {
-            return $user->hasRole(Config::string('vendra-permission.super_admin_role', 'superadmin')) ? true : null;
+        Gate::after(function (Authenticatable $user): ?true {
+            if ( ! method_exists($user, 'hasRole')) {
+                return null;
+            }
+
+            return $user->hasRole(Config::string('vendra-permission.admin_role')) ? true : null;
         });
 
         $this->registerTenantFeatures();

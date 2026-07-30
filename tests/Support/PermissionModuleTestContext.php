@@ -45,21 +45,21 @@ final class PermissionModuleTestContext
             PermissionFeatureEnum::RoleManagement->value,
         ]);
 
-        $superAdminRole = Role::factory()
+        $adminRole = Role::factory()
             ->forTenant($tenant)
             ->forGuard('web')
             ->create([
-                'name' => Config::string('vendra-permission.super_admin_role', 'super-admin'),
+                'name' => Config::string('vendra-permission.admin_role', 'admin'),
             ]);
 
         $user = User::factory()
             ->forTenant($tenant)
             ->create([
-                'username' => 'super-admin',
-                'email'    => 'super-admin@example.test',
+                'username' => 'admin',
+                'email'    => 'admin@example.test',
             ]);
 
-        $user->assignRole($superAdminRole);
+        $user->assignRole($adminRole);
 
         bootFilamentAdminPanel($user, $tenant, [
             PermissionResource::class,

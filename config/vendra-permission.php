@@ -2,18 +2,22 @@
 
 declare(strict_types=1);
 
+use Misaf\VendraPermission\Enums\RoleEnum;
+
 return [
 
     /*
     |--------------------------------------------------------------------------
-    | Super Admin Role
+    | Admin Role
     |--------------------------------------------------------------------------
     |
-    | This role will bypass authorization checks in Gate::after().
+    | This role will bypass authorization checks in Gate::after(). It is the
+    | top-level role granted to a tenant owner; admins may create additional
+    | scoped roles themselves.
     |
     */
 
-    'super_admin_role' => env('VENDRA_PERMISSION_SUPER_ADMIN_ROLE', 'super-admin'),
+    'admin_role' => env('VENDRA_PERMISSION_ADMIN_ROLE', RoleEnum::Admin->value),
 
     /*
     |--------------------------------------------------------------------------
