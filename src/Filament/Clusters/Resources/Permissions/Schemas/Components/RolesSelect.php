@@ -8,6 +8,7 @@ use Filament\Forms\Components\Select;
 use Illuminate\Validation\Rule;
 use Misaf\VendraPermission\Models\Role;
 use Misaf\VendraSupport\Tenancy\TenantAwareness;
+use Misaf\VendraSupport\Tenancy\TenantSchema;
 
 final class RolesSelect
 {
@@ -16,7 +17,7 @@ final class RolesSelect
         $existsRule = Rule::exists((new Role())->getTable(), 'id');
 
         if (TenantAwareness::enabled()) {
-            $existsRule->where('tenant_id', TenantAwareness::currentId());
+            $existsRule->where(TenantSchema::column(), TenantAwareness::currentId());
         }
 
         return Select::make($name)

@@ -40,7 +40,7 @@ return new class extends Migration {
         Schema::create($tableNames['roles'], static function (Blueprint $table) use ($teams, $teamForeignKey): void {
             $table->id(); // role id
             TenantSchema::addTenantColumn($table);
-            if (($teams || config('permission.testing')) && ( ! TenantSchema::enabled() || 'tenant_id' !== $teamForeignKey)) { // permission.testing is a fix for sqlite testing
+            if (($teams || config('permission.testing')) && ( ! TenantSchema::enabled() || TenantSchema::column() !== $teamForeignKey)) { // permission.testing is a fix for sqlite testing
                 $table->unsignedBigInteger($teamForeignKey)->nullable();
             }
             if ($teams || config('permission.testing')) {
