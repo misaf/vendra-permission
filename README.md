@@ -15,7 +15,7 @@ Role and permission management for Vendra applications.
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.4+
 - Laravel 13
 - Filament 5
 - Livewire 4
@@ -174,12 +174,11 @@ See: https://spatie.be/docs/laravel-permission
 
 ## Testing
 
-Run the package checks from the package directory:
+Run the package checks from the project root:
 
 ```bash
-composer test
-composer analyse
-composer format
+php artisan test --compact --testsuite=vendra-permission
+composer stan
 ```
 
 ## License
